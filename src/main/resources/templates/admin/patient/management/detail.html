@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout::header"></head>
+<head>
+  <link rel="stylesheet" href="/css/patient/patient_detail.css">
+</head>
+<body>
+<div class="container">
+  <div class="form-detail-wrapper">
+    <form id="patient-form" action="#" th:action="@{/admin/patient/management/save}" th:object="${patient}" method="post">
+      <div class="form-header">
+        <h1 th:text="${title}">Patient Details</h1>
+      </div>
+      <div class="form-content form-input-element">
+        <div class="form-element hidden-div" th:if="${patient.id}">
+          <input type="text" id="id" name="id" th:value="${patient.id}" readonly class="form-control"/>
+        </div>
+
+        <div class="form-element form-input-element input-placeholder">
+          <input type="text" placeholder="First Name" id="firstName" name="firstName" th:value="${patient.firstName}" required class="form-control" />
+        </div>
+
+        <div class="form-element form-input-element input-placeholder">
+          <input type="text" placeholder="Last Name" id="lastName" name="lastName" th:value="${patient.lastName}" required class="form-control" />
+        </div>
+
+        <div class="form-element form-input-element input-placeholder">
+          <input type="email" placeholder="Email" id="email" name="email" th:value="${patient.email}" class="form-control" />
+        </div>
+
+        <div class="form-element form-input-element input-placeholder">
+          <input type="text" placeholder="Phone Number" id="phoneNumber" name="phoneNumber" th:value="${patient.phoneNumber}" required class="form-control validate-phone" />
+        </div>
+
+        <div class="form-element form-input-element input-placeholder">
+          <input type="text" placeholder="Input Your Detail Address" id="address" th:field="${patient.address}" required class="form-control"/>
+        </div>
+
+        <div class="form-element form-checkbox-element">
+          <label>
+            <input type="radio" name="gender" value="MALE" th:checked="${patient.gender == 'MALE'}"> Male
+          </label>
+          <label>
+            <input type="radio" name="gender" value="FEMALE" th:checked="${patient.gender == 'FEMALE'}"> Female
+          </label>
+        </div>
+
+        <div>
+          <input type="date" id="birthday" th:field="${patient.birthDate}" required />
+        </div>
+
+        <div class="button-submit-wrapper">
+          <button type="submit" class="btn btn-primary" th:text="${patient.id != null ? 'Update Patient' : 'Create Patient'}"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="/js/lib/validation.js"></script>
+</body>
+</html>

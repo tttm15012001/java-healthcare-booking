@@ -1,0 +1,116 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    margin: 0 30px;
+}
+
+.navigation-wrapper {
+    flex: 0 0 13.5%;
+    min-width: 120px;
+}
+
+.manage-center-wrapper {
+    flex: 0 0 60%;
+}
+
+.manage-patient-wrapper {
+    padding: 40px;
+    border-radius: 40px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 4px 20px 0px;
+}
+
+.announcement-wrapper {
+    flex: 0 0 26.5%;
+    min-width: 180px;
+}
+
+/* Style for button */
+.manage-patient-wrapper .button-add-new {
+    float: right;
+    appearance: none;
+    background-color: #000000;
+    border: 2px solid #1A1A1A;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0 0 25px 0;
+    min-height: 50px;
+    min-width: 0;
+    outline: none;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 15%;
+    will-change: transform;
+}
+
+.manage-patient-wrapper .button-add-new:disabled {
+    pointer-events: none;
+}
+
+.manage-patient-wrapper .button-add-new:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.manage-patient-wrapper .button-add-new:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+/* End style for button */
+
+.manage-patient-wrapper table.patient-table {
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.manage-patient-wrapper tr.patient-table-head {
+    height: 60px;
+}
+
+.manage-patient-wrapper tr.patient-table-head th {
+    font-family: OpenSans-Regular, serif;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+.manage-patient-wrapper tbody tr {
+    height: 40px;
+    font-family: OpenSans-Regular, serif;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: unset;
+    border-bottom: 1px solid #E8EAF6;
+}
+
+.manage-patient-wrapper tbody tr:last-child {
+    border-bottom: none;
+}
+
+.manage-patient-wrapper th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+.actions img {
+    height: 25px;
+    width: auto;
+    object-fit: cover;
+}
