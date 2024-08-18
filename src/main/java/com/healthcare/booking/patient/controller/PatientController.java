@@ -20,6 +20,7 @@ public class PatientController {
     @GetMapping
     public String getListPatients(@RequestParam(required = false) Map<String, String> filterParams, Model model) {
         List<PatientModel> listPatients = this.patientService.getListPatientWithFilter(filterParams);
+        model.addAttribute("filters", PatientDataProvider.FILTER_OPTIONS);
         model.addAttribute("patients", listPatients);
         return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "all";
     }

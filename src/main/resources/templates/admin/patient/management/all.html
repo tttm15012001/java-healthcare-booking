@@ -12,9 +12,33 @@
 
         </div>
         <div class="manage-patient-wrapper">
-            <a th:href="@{/admin/patient/management/view/new}">
-                <button class="button-add-new" role="button"><span class="text">Add new patient</span></button>
-            </a>
+            <div class="header-control">
+                <a class="action-filter-show">
+                    <span class="text">
+                        Filter
+                    </span>
+                </a>
+                <a class="action-filter-close" style="display: none;">
+                    <span class="text">
+                        Close
+                    </span>
+                </a>
+                <a th:href="@{/admin/patient/management/view/new}">
+                    <button class="button-add-new" role="button"><span class="text">Add new patient</span></button>
+                </a>
+            </div>
+            <div class="wrapper-filter" style="display: none;">
+                <div class="wrapper-filter-options" th:each="filter : ${filters}">
+                    <div class="filter-option">
+                        <label th:for="${filter.fieldName}" th:text="${filter.title}"></label>
+                        <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" th:placeholder="${filter.title}" />
+                    </div>
+                </div>
+                <div class="action-filter">
+                    <button class="do">Do Filter</button>
+                    <button class="clear">Clear All Filters</button>
+                </div>
+            </div>
             <table class="patient-table">
                 <thead>
                 <tr class="patient-table-head">
@@ -49,6 +73,7 @@
     </div>
     <div class="announcement-wrapper"></div>
 </div>
+<script src="/js/patient/management/filter-action.js"></script>
 <script src="/js/lib/validation.js"></script>
 </body>
 </html>

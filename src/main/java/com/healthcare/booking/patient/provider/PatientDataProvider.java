@@ -9,10 +9,10 @@ public class PatientDataProvider {
     public static String MEDICAL_REGISTRATION_PATH_TEMPLATE = "/admin/medical/";
 
     public static List<FilterConfig> FILTER_OPTIONS = List.of(
-        new FilterConfig("firstName", "like"),
-        new FilterConfig("lastName", "like"),
-        new FilterConfig("email", "like"),
-        new FilterConfig("phoneNumber", "like"),
-        new FilterConfig("birthday", "equal")
+        new FilterConfig("firstName", "like", "First Name", "text"),
+        new FilterConfig("lastName", "like", "Last Name", "text"),
+        new FilterConfig("email", "like", "Email", "text"),
+        new FilterConfig("phoneNumber", "like", "Phone Number", "text"),
+        new FilterConfig("birthday", "equal", "Date of birth", "date")
     );
 }
