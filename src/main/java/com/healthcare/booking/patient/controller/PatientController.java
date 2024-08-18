@@ -1,5 +1,6 @@
 package com.healthcare.booking.patient.controller;
 
+import com.healthcare.booking.patient.provider.PatientDataProvider;
 import com.healthcare.booking.patient.model.PatientModel;
 import com.healthcare.booking.patient.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,19 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping({"admin/patient/management", "admin/patient/management/"})
 public class PatientController {
-    private final String PATH_TEMPLATE = "admin/patient/management/";
     @Autowired
     private PatientService patientService;
 
     @GetMapping
-    public String getListPatients(Model model) {
-        List<PatientModel> listPatients = this.patientService.getListPatient();
+    public String getListPatients(@RequestParam(required = false) Map<String, String> filterParams, Model model) {
+        List<PatientModel> listPatients = this.patientService.getListPatientWithFilter(filterParams);
         model.addAttribute("patients", listPatients);
-        return this.PATH_TEMPLATE + "all";
+        return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "all";
     }
 
     @GetMapping({"/view/{patient_id}", "/view/{patient_id}/"})
@@ -33,7 +34,7 @@ public class PatientController {
         if (patient != null && patient.getId() != null) {
             model.addAttribute("patient", patient);
             model.addAttribute("title", "Edit Patient " + this.patientService.getFullName(patient) + " (ID: " + patient.getId() + ")");
-            return this.PATH_TEMPLATE + "detail";
+            return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "detail";
         }
         model.addAttribute("error_message", "There's something wrong while get patient detail!");
         return "redirect:/admin/patient/management";
@@ -60,7 +61,7 @@ public class PatientController {
     public String newPatient(Model model) {
         model.addAttribute("patient", new PatientModel());
         model.addAttribute("title", "Create New Patient");
-        return this.PATH_TEMPLATE + "detail";
+        return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "detail";
     }
 
     @PostMapping({"/save", "/save/"})

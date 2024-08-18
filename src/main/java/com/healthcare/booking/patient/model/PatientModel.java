@@ -17,5 +17,5 @@ public class PatientModel {
     private String phoneNumber;
     private String address;
     private String gender;
-    private String birthDate;
+    private String birthday;
 }
