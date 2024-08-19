@@ -11,8 +11,8 @@ public class PatientDataProvider {
     public static List<FilterConfig> FILTER_OPTIONS = List.of(
         new FilterConfig("firstName", "like", "First Name", "text"),
         new FilterConfig("lastName", "like", "Last Name", "text"),
-        new FilterConfig("email", "like", "Email", "text"),
-        new FilterConfig("phoneNumber", "like", "Phone Number", "text"),
-        new FilterConfig("birthday", "equal", "Date of birth", "date")
+//        new FilterConfig("email", "like", "Email", "text"),
+        new FilterConfig("phoneNumber", "like", "Phone Number", "text")
+//        new FilterConfig("birthday", "equal", "Date of birth", "date")
     );
 }

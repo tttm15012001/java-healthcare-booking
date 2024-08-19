@@ -127,3 +127,50 @@
     font-weight: bold;
     color: green;
 }
+
+.form-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    row-gap: 30px;
+    justify-content: space-between;
+}
+
+.form-element {
+    width: calc(50% - 20px);
+}
+
+.form-input-element input {
+    height: 37px;
+    border: none;
+    border-bottom: 2px solid #e6e6e6;
+    width: 100%;
+    color: #666;
+}
+
+.form-input-element label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #696969;
+}
+
+.wrapper-filter {
+    margin-bottom: 50px;
+}
+
+.action-filter {
+    float: right;
+}
+
+.action-filter button {
+    border: none;
+    background: no-repeat;
+    color: green;
+    font-size: 15px;
+    font-weight: bold;
+
+    &.clear {
+        color: #696969;
+    }
+}

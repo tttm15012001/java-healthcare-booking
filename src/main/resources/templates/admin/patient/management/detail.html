@@ -11,7 +11,7 @@
       <div class="form-header">
         <h1 th:text="${title}">Patient Details</h1>
       </div>
-      <div class="form-content form-input-element">
+      <div class="form-content">
         <div class="form-element hidden-div" th:if="${patient.id}">
           <input type="text" id="id" name="id" th:value="${patient.id}" readonly class="form-control"/>
         </div>

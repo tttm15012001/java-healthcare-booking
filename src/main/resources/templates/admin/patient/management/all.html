@@ -28,15 +28,25 @@
                 </a>
             </div>
             <div class="wrapper-filter" style="display: none;">
-                <div class="wrapper-filter-options" th:each="filter : ${filters}">
-                    <div class="filter-option">
-                        <label th:for="${filter.fieldName}" th:text="${filter.title}"></label>
-                        <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" th:placeholder="${filter.title}" />
+                <form class="form-filter">
+                    <div class="wrapper-filter-options form-content">
+                        <div class="filter-option form-element form-input-element" th:each="filter : ${filters}">
+                            <label th:for="${filter.fieldName}" th:text="${filter.title}"></label>
+                            <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" />
+                        </div>
                     </div>
+                    <div class="action-filter">
+                        <button class="do">Do Filter</button>
+                        <button class="clear">Clear All Filters</button>
+                    </div>
+                </form>
+            </div>
+            <div class="action-template" style="display: none;">
+                <div class="action-edit">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
                 </div>
-                <div class="action-filter">
-                    <button class="do">Do Filter</button>
-                    <button class="clear">Clear All Filters</button>
+                <div class="action-delete">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
                 </div>
             </div>
             <table class="patient-table">
@@ -59,10 +69,10 @@
                     <td><span th:text="${patient.phoneNumber}"> Phone Number </span></td>
                     <td><span th:text="${patient.gender}"> Gender </span></td>
                     <td class="actions">
-                        <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}">
+                        <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}" class="edit">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
                         </a>
-                        <a th:href="@{/admin/patient/management/delete/{patient_id}(patient_id=${patient.id})}">
+                        <a th:href="@{/admin/patient/management/delete/{patient_id}(patient_id=${patient.id})}" class="delete">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
                         </a>
                     </td>

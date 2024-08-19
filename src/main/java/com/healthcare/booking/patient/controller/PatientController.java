@@ -18,11 +18,17 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping
-    public String getListPatients(@RequestParam(required = false) Map<String, String> filterParams, Model model) {
-        List<PatientModel> listPatients = this.patientService.getListPatientWithFilter(filterParams);
+    public String getListPatients(Model model) {
+        List<PatientModel> listPatients = this.patientService.getListPatient();
         model.addAttribute("filters", PatientDataProvider.FILTER_OPTIONS);
         model.addAttribute("patients", listPatients);
         return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "all";
+    }
+
+    @GetMapping({"/filter", "/filter/"})
+    @ResponseBody
+    public List<PatientModel> filterPatients(@RequestParam(required = false) Map<String, String> filterParams) {
+        return this.patientService.getListPatientWithFilter(filterParams);
     }
 
     @GetMapping({"/view/{patient_id}", "/view/{patient_id}/"})
