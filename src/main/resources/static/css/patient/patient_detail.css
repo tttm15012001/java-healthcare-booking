@@ -23,6 +23,37 @@
     margin-bottom: 50px;
 }
 
+.form-header .patient-code {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.form-header .patient-code span {
+    font-weight: normal;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.copy-wrapper {
+    width: fit-content;
+    position: relative;
+    margin: auto;
+}
+
+.copy-success {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    z-index: 1000;
+    white-space: nowrap;
+}
+
 .form-content {
     display: flex;
     flex-direction: row;

@@ -34,7 +34,7 @@ public class PatientService {
     }
 
     public String getFullName(PatientModel patientModel) {
-        return patientModel.getFirstName() + " " + patientModel.getLastName();
+        return patientModel.getFullName();
     }
 
     public void deletePatient(Long id) {

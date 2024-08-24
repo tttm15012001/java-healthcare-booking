@@ -52,10 +52,11 @@
             <table class="patient-table">
                 <thead>
                 <tr class="patient-table-head">
-                    <th> Firstname </th>
-                    <th> Lastname </th>
-                    <th> Phone Number </th>
+                    <th> Full Name </th>
+                    <th> Patient Code </th>
+                    <th> Created At </th>
                     <th> Gender </th>
+                    <th> Status </th>
                     <th> Actions </th>
                 </tr>
                 </thead>
@@ -64,10 +65,20 @@
                     <td colspan="9"> There's no patient here! </td>
                 </tr>
                 <tr th:each="patient : ${patients}">
-                    <td><span th:text="${patient.firstName}"> Firstname </span></td>
-                    <td><span th:text="${patient.lastName}"> Lastname </span></td>
-                    <td><span th:text="${patient.phoneNumber}"> Phone Number </span></td>
+                    <td><span th:text="${patient.fullName}"> Firstname </span></td>
+                    <td><span th:text="${patient.patientCode}"> Lastname </span></td>
+                    <td><span th:text="${patient.createdAt}"> Phone Number </span></td>
                     <td><span th:text="${patient.gender}"> Gender </span></td>
+                    <td>
+                        <div class="status" th:classappend="
+                            ${patient.status == 0} ? 'status-new' :
+                            (${patient.status == 1} ? 'status-wait-treatment' :
+                            (${patient.status == 2} ? 'status-treating' :
+                            (${patient.status == 3} ? 'status-waiting-medicine' :
+                            (${patient.status == 4} ? 'status-done' :
+                            'status-unknown'))))">
+                        </div>
+                    </td>
                     <td class="actions">
                         <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}" class="edit">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
@@ -79,6 +90,26 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="question">
+                <span>Status ?</span>
+                <div class="answer note-status-label">
+                    <div class="new">
+                        New
+                    </div>
+                    <div class="wait-treatment">
+                        Waiting For Treatment
+                    </div>
+                    <div class="treating">
+                        Treating
+                    </div>
+                    <div class="waiting-medicine">
+                        Waiting For Medicine
+                    </div>
+                    <div class="done">
+                        Done
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="announcement-wrapper"></div>

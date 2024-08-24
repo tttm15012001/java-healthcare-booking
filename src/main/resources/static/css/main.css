@@ -1,3 +1,106 @@
+body {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;;
+}
+
+body table p, body table span {
+    color: #424242;
+}
+
+.question {
+    position: relative;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+    float: right;
+    width: 100%;
+
+    span {
+        float: right;
+        cursor: pointer;
+    }
+
+    .answer {
+        width: fit-content;
+        position: absolute;
+        display: none;
+        top: 100%;
+        right: 0;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+        gap: 50px;
+
+        > div {
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    span:hover + .answer {
+        display: flex;
+    }
+}
+
+
+.status {
+    border: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin: auto;
+}
+
+.status-new {
+    background-color: #424242;
+}
+
+.note-status-label .new {
+    color: #424242;
+}
+
+.status-wait-treatment {
+    background-color: #F57F17;
+}
+
+.note-status-label .wait-treatment {
+    color: #F57F17;
+}
+
+.status-treating {
+    background-color: #00E5FF;
+}
+
+.note-status-label .treating {
+    color: #00E5FF;
+}
+
+.status-waiting-medicine {
+    background-color: #FDD835;
+}
+
+.note-status-label .waiting-medicine {
+    color: #FDD835;
+}
+
+.status-done {
+    background-color: #64DD17;
+}
+
+.note-status-label .done {
+    color: #64DD17;
+}
+
+.note-status-label .status {
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
 body textarea:focus, body input:focus{
     outline: none;
     border-bottom: 2px solid #000000;
