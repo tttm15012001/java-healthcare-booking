@@ -125,49 +125,72 @@
     color: green;
 }
 
-.form-content {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 40px;
-    row-gap: 30px;
-    justify-content: space-between;
-}
-
-.form-element {
-    width: calc(50% - 20px);
-}
-
-.form-input-element input {
-    height: 37px;
-    border: none;
-    border-bottom: 2px solid #e6e6e6;
-    width: 100%;
-    color: #666;
-}
-
-.form-input-element label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #696969;
-}
-
 .wrapper-filter {
     margin-bottom: 50px;
-}
 
-.action-filter {
-    float: right;
-}
+    .form-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 40px;
+        row-gap: 30px;
+        justify-content: space-between;
 
-.action-filter button {
-    border: none;
-    background: no-repeat;
-    color: green;
-    font-size: 15px;
-    font-weight: bold;
+        .form-element {
+            width: calc(50% - 20px);
+        }
 
-    &.clear {
-        color: #696969;
+        .form-input-element {
+
+            input {
+                padding: 0;
+                height: 37px;
+                border: none;
+                border-bottom: 2px solid #e6e6e6;
+                width: 100%;
+                color: #666;
+                font-size: 16px;
+                margin-top: 5px;
+            }
+
+            select {
+                border: none;
+                border-bottom: 2px solid #e6e6e6;
+                width: 100%;
+                height: 39px;
+                background: none;
+                font-size: 16px;
+                color: #666;
+                margin-top: 5px;
+
+                option {
+                    padding: 0;
+                }
+            }
+
+            label {
+                font-size: 17px;
+                font-weight: bold;
+                color: #696969;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .action-filter {
+        float: right;
+        margin: 25px 0;
+
+        button {
+            border: none;
+            background: no-repeat;
+            color: green;
+            font-size: 16px;
+            font-weight: bold;
+
+            &.clear {
+                color: #696969;
+            }
+        }
     }
 }

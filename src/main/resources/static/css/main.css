@@ -101,6 +101,10 @@ body table p, body table span {
     margin: 0 5px 0 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 body textarea:focus, body input:focus{
     outline: none;
     border-bottom: 2px solid #000000;

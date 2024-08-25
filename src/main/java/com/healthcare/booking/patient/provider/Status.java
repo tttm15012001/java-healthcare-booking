@@ -1,5 +1,9 @@
 package com.healthcare.booking.patient.provider;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public enum Status {
     NEW(0, "New"),
     WAIT_TREATMENT(1, "Waiting For Treatment"),
@@ -30,5 +34,10 @@ public enum Status {
             }
         }
         return "Unknown";
+    }
+
+    public static Map<Integer, String> getAllOptions() {
+        return Stream.of(Status.values())
+                .collect(Collectors.toMap(Status::getCode, Status::getLabel));
     }
 }

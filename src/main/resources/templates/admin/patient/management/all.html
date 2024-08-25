@@ -32,7 +32,20 @@
                     <div class="wrapper-filter-options form-content">
                         <div class="filter-option form-element form-input-element" th:each="filter : ${filters}">
                             <label th:for="${filter.fieldName}" th:text="${filter.title}"></label>
-                            <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" />
+
+                            <div th:if="${filter.inputType == 'select'}">
+                                <select th:id="${filter.fieldName}" th:name="${filter.fieldName}">
+                                    <option value="" disabled selected></option>
+                                    <option th:each="option : ${filter.options}"
+                                            th:value="${option.key}"
+                                            th:text="${option.value}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div th:unless="${filter.inputType == 'select'}">
+                                <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" />
+                            </div>
                         </div>
                     </div>
                     <div class="action-filter">
@@ -65,9 +78,9 @@
                     <td colspan="9"> There's no patient here! </td>
                 </tr>
                 <tr th:each="patient : ${patients}">
-                    <td><span th:text="${patient.fullName}"> Firstname </span></td>
-                    <td><span th:text="${patient.patientCode}"> Lastname </span></td>
-                    <td><span th:text="${patient.createdAt}"> Phone Number </span></td>
+                    <td><span th:text="${patient.fullName}"> Full Name </span></td>
+                    <td><span th:text="${patient.patientCode}"> Patient Code </span></td>
+                    <td><span th:text="${patient.createdAt}"> Created At </span></td>
                     <td><span th:text="${patient.gender}"> Gender </span></td>
                     <td>
                         <div class="status" th:classappend="

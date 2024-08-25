@@ -92,5 +92,7 @@ const validationConfig = [
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('patient-form');
-    new FormValidator(form, validationConfig);
+    if (form) {
+        new FormValidator(form, validationConfig);
+    }
 });

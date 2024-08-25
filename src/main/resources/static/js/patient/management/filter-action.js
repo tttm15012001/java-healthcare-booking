@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    const baseUrl = window.location.origin + window.location.pathname;
     $(".action-filter-show").on('click', function (event) {
         event.preventDefault();
         $(this).hide();
@@ -21,68 +20,70 @@ $(document).ready(function () {
 
     $(".action-filter button.clear").on('click', function (event) {
         event.preventDefault();
-        let filters = $(".wrapper-filter-options").find('input');
-        filters.each(function() {
-            $(this).val('');
-        });
+        $(".form-filter")[0].reset();
         doFilter();
     });
 
-    function doFilter() {
-        let params = [];
+    function getQueryParams() {
+        let searchParams = new URLSearchParams(window.location.search);
+        let params = {};
 
-        let filters = $(".wrapper-filter-options").find('input');
-        filters.each(function() {
-            let input = $(this);
-            if (input.val()) {
-                params.push({'fieldName': input.attr('name'), 'value': input.val()});
-            }
-        });
-
-        let queryString = '';
-        let isFirst = true;
-        params.forEach(function(param) {
-            if (!isFirst) {
-                queryString += '&';
-            }
-            isFirst = false;
-            queryString += param.fieldName + '=' + param.value;
-        })
-
-        let newUrl = baseUrl;
-        if (params.length > 0) {
-            newUrl += '?' + queryString;
+        for (let [key, value] of searchParams.entries()) {
+            params[key] = value;
         }
 
-        const patientTable = $(".patient-table tbody");
-        let filterData = {};
+        return params;
+    }
 
-        // Collect the filter values
-        filters.each(function() {
-            let input = $(this);
-            if (input.val()) {
-                filterData[input.attr('name')] = input.val();
+    // Function to populate form fields with query params
+    function populateForm(params) {
+        Object.keys(params).forEach(function (key) {
+            let input = $(`[name="${key}"]`);
+            if (input.length) {
+                input.val(params[key]);
             }
         });
+    }
+
+    // Populate form fields when page loads
+    let params = getQueryParams();
+    populateForm(params);
+
+    function doFilter() {
+        const patientTable = $(".patient-table tbody");
+        let formData = $(".form-filter").serializeArray();
+        let params = formData.filter(item => item.value !== '').map(item => ({
+            fieldName: item.name,
+            value: item.value
+        }));
+
+        let queryString = params.map(param => `${param.fieldName}=${encodeURIComponent(param.value)}`).join('&');
+        let baseUrl = window.location.origin + '/admin/patient/management';
+        let newUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
 
         /* Will be replaced by ajax call */
         if (newUrl !== window.location.href) {
             $.ajax({
                 url: '/admin/patient/management/filter', // Adjust the URL to your filter endpoint
                 method: 'GET',
-                data: filterData,
+                data: params.reduce((acc, cur) => ({ ...acc, [cur.fieldName]: cur.value }), {}),
                 success: function(response) {
                     window.history.pushState({}, '', newUrl);
                     patientTable.empty();
 
                     if (response.length > 0) {
                         $.each(response, function(index, patient) {
+                            let status = patient.status;
+                            let classStatus = getClassStatus(status);
                             let row =
                                 `<tr>
-                                    <td>${patient.firstName}</td>
-                                    <td>${patient.lastName}</td>
-                                    <td>${patient.phoneNumber}</td>
+                                    <td>${patient.fullName}</td>
+                                    <td>${patient.patientCode}</td>
+                                    <td>${patient.createdAt}</td>
                                     <td>${patient.gender}</td>
+                                    <td>
+                                        <div class="status ${classStatus}"><div>
+                                    </td>
                                     <td class="actions">
                                         <a href="/admin/patient/management/view/${patient.id}" class="edit"></a>
                                         <a href="/admin/patient/management/delete/${patient.id}" class="delete"></a>
@@ -105,5 +106,30 @@ $(document).ready(function () {
             });
             // window.location.href = newUrl;
         }
+    }
+
+    function getClassStatus(status) {
+        let result = '';
+        switch (status) {
+            case 0:
+                result = 'status-new'
+                break;
+            case 1:
+                result = 'status-wait-treatment'
+                break;
+            case 2:
+                result = 'status-treating'
+                break;
+            case 3:
+                result = 'status-waiting-medicine'
+                break;
+            case 4:
+                result = 'status-done'
+                break;
+            default:
+                result = 'status-unknown'
+        }
+
+        return result;
     }
 });
