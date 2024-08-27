@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/css/patient/patient_management.css">
 </head>
 <body>
+<aside th:replace="~{admin/aside-navigation::aside}"></aside>
 <div class="container">
     <div class="navigation-wrapper"></div>
     <div class="manage-center-wrapper">
@@ -96,7 +97,7 @@
                         <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}" class="edit">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
                         </a>
-                        <a th:href="@{/admin/patient/management/delete/{patient_id}(patient_id=${patient.id})}" class="delete">
+                        <a th:data-patient-id="${patient.id}" th:data-post="@{/admin/patient/management/delete/{patient_id}(patient_id=${patient.id})}" class="delete">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
                         </a>
                     </td>
@@ -127,7 +128,32 @@
     </div>
     <div class="announcement-wrapper"></div>
 </div>
+<div id="confirmModal" style="display: none;">
+    <div class="modal-content">
+        <p>Are you sure you want to delete this patient?</p>
+        <button id="confirmYes">Yes</button>
+        <button id="confirmNo">No</button>
+    </div>
+</div>
+
+<!-- Success Popup -->
+<div id="successPopup" class="popup-message" style="display: none;">
+    <div class="popup-content">
+        <p>Patient deleted successfully!</p>
+        <button id="successOk">OK</button>
+    </div>
+</div>
+
+<!-- Error Popup -->
+<div id="errorPopup" class="popup-message" style="display: none;">
+    <div class="popup-content">
+        <p>Failed to delete the patient. Please try again.</p>
+        <button id="errorOk">OK</button>
+    </div>
+</div>
+
 <script src="/js/patient/management/filter-action.js"></script>
+<script src="/js/patient/management/popup-confirm.js"></script>
 <script src="/js/lib/validation.js"></script>
 </body>
 </html>

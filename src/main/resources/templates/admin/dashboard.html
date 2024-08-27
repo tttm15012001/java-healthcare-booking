@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::header"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/admin/aside-navigation.css}">
+</head>
+<body>
+<!-- Include the fragment from aside-navigation.html -->
+<aside th:replace="~{admin/aside-navigation::aside}"></aside>
+
+<!--<main class="main-content">-->
+<!--    <h1>Dashboard Content</h1>-->
+<!--</main>-->
+
+</body>
+</html>

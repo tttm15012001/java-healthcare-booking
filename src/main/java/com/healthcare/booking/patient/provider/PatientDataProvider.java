@@ -8,6 +8,7 @@ import java.util.List;
 public class PatientDataProvider {
     public static String PATIENT_MANAGEMENT_PATH_TEMPLATE   = "admin/patient/management/";
     public static String MEDICAL_REGISTRATION_PATH_TEMPLATE = "/admin/medical/";
+    public static String ADMIN_PATH_TEMPLATE = "admin/";
 
     public static List<FilterConfig> FILTER_OPTIONS = List.of(
         new FilterConfig("fullName", "like", "Full Name", "text"),
