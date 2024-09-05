@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/admin/aside-navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/patient/patient_management.css}">
 </head>
 <body>
 <!-- Include the fragment from aside-navigation.html -->
-<aside th:replace="~{admin/aside-navigation::aside}"></aside>
+<div th:replace="~{admin/aside-navigation::aside}"></div>
+<div th:class="main-content_container">
+    <div th:class="container">
+        <div class="manage-center-wrapper">
+            <div class="manage-patient-wrapper">
+                <div class="main-table-content" th:replace="~{admin/patient/management/all::patient-table}">
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--<main class="main-content">-->
 <!--    <h1>Dashboard Content</h1>-->
 <!--</main>-->

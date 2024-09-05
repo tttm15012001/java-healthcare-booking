@@ -2,131 +2,133 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout::header"></head>
 <head>
-    <link rel="stylesheet" href="/css/patient/patient_management.css">
+    <link rel="stylesheet" href="/css/admin/patient/patient_management.css">
 </head>
 <body>
-<aside th:replace="~{admin/aside-navigation::aside}"></aside>
-<div class="container">
-    <div class="navigation-wrapper"></div>
-    <div class="manage-center-wrapper">
-        <div class="manage-dashboard-wrapper">
+<div th:replace="~{admin/aside-navigation::aside}"></div>
+<div th:class="main-content_container">
+    <div th:class="container">
+        <div class="manage-center-wrapper">
+            <div class="manage-dashboard-wrapper">
 
-        </div>
-        <div class="manage-patient-wrapper">
-            <div class="header-control">
-                <a class="action-filter-show">
+            </div>
+            <div class="manage-patient-wrapper">
+                <div class="header-control">
+                    <a class="action-filter-show">
                     <span class="text">
                         Filter
                     </span>
-                </a>
-                <a class="action-filter-close" style="display: none;">
+                    </a>
+                    <a class="action-filter-close" style="display: none;">
                     <span class="text">
                         Close
                     </span>
-                </a>
-                <a th:href="@{/admin/patient/management/view/new}">
-                    <button class="button-add-new" role="button"><span class="text">Add new patient</span></button>
-                </a>
-            </div>
-            <div class="wrapper-filter" style="display: none;">
-                <form class="form-filter">
-                    <div class="wrapper-filter-options form-content">
-                        <div class="filter-option form-element form-input-element" th:each="filter : ${filters}">
-                            <label th:for="${filter.fieldName}" th:text="${filter.title}"></label>
+                    </a>
+                    <a th:href="@{/admin/patient/management/view/new}">
+                        <button class="button-add-new" role="button"><span class="text">Add new patient</span></button>
+                    </a>
+                </div>
+                <div class="wrapper-filter" style="display: none;">
+                    <form class="form-filter">
+                        <div class="wrapper-filter-options form-content">
+                            <div class="filter-option form-element form-input-element" th:each="filter : ${filters}">
+                                <label th:for="${filter.fieldName}" th:text="${filter.title}"></label>
 
-                            <div th:if="${filter.inputType == 'select'}">
-                                <select th:id="${filter.fieldName}" th:name="${filter.fieldName}">
-                                    <option value="" disabled selected></option>
-                                    <option th:each="option : ${filter.options}"
-                                            th:value="${option.key}"
-                                            th:text="${option.value}">
-                                    </option>
-                                </select>
-                            </div>
+                                <div th:if="${filter.inputType == 'select'}">
+                                    <select th:id="${filter.fieldName}" th:name="${filter.fieldName}">
+                                        <option value="" disabled selected></option>
+                                        <option th:each="option : ${filter.options}"
+                                                th:value="${option.key}"
+                                                th:text="${option.value}">
+                                        </option>
+                                    </select>
+                                </div>
 
-                            <div th:unless="${filter.inputType == 'select'}">
-                                <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" />
+                                <div th:unless="${filter.inputType == 'select'}">
+                                    <input th:type="${filter.inputType}" th:id="${filter.fieldName}" th:name="${filter.fieldName}" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="action-filter">
-                        <button class="do">Do Filter</button>
-                        <button class="clear">Clear All Filters</button>
-                    </div>
-                </form>
-            </div>
-            <div class="action-template" style="display: none;">
-                <div class="action-edit">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
+                        <div class="action-filter">
+                            <button class="do">Do Filter</button>
+                            <button class="clear">Clear All Filters</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="action-delete">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
+                <div class="action-template" style="display: none;">
+                    <div class="action-edit">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
+                    </div>
+                    <div class="action-delete">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
+                    </div>
                 </div>
-            </div>
-            <table class="patient-table">
-                <thead>
-                <tr class="patient-table-head">
-                    <th> Full Name </th>
-                    <th> Patient Code </th>
-                    <th> Created At </th>
-                    <th> Gender </th>
-                    <th> Status </th>
-                    <th> Actions </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${#lists.isEmpty(patients)}">
-                    <td colspan="9"> There's no patient here! </td>
-                </tr>
-                <tr th:each="patient : ${patients}">
-                    <td><span th:text="${patient.fullName}"> Full Name </span></td>
-                    <td><span th:text="${patient.patientCode}"> Patient Code </span></td>
-                    <td><span th:text="${patient.createdAt}"> Created At </span></td>
-                    <td><span th:text="${patient.gender}"> Gender </span></td>
-                    <td>
-                        <div class="status" th:classappend="
+                <div class="main-table-content" th:fragment="patient-table">
+                    <table class="patient-table">
+                        <thead>
+                        <tr class="patient-table-head">
+                            <th> Full Name </th>
+                            <th> Patient Code </th>
+                            <th> Created At </th>
+                            <th> Gender </th>
+                            <th> Status </th>
+                            <th> Actions </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(patients)}">
+                            <td colspan="9"> There's no patient here! </td>
+                        </tr>
+                        <tr th:each="patient : ${patients}">
+                            <td><span th:text="${patient.fullName}"> Full Name </span></td>
+                            <td><span th:text="${patient.patientCode}"> Patient Code </span></td>
+                            <td><span th:text="${patient.createdAt}"> Created At </span></td>
+                            <td><span th:text="${patient.gender}"> Gender </span></td>
+                            <td>
+                                <div class="status" th:classappend="
                             ${patient.status == 0} ? 'status-new' :
                             (${patient.status == 1} ? 'status-wait-treatment' :
                             (${patient.status == 2} ? 'status-treating' :
                             (${patient.status == 3} ? 'status-waiting-medicine' :
                             (${patient.status == 4} ? 'status-done' :
                             'status-unknown'))))">
+                                </div>
+                            </td>
+                            <td class="actions">
+                                <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}" class="edit">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
+                                </a>
+                                <a th:data-patient-id="${patient.id}" th:data-post="@{/admin/patient/management/delete/{patient_id}(patient_id=${patient.id})}" class="delete">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="question">
+                        <span>Status ?</span>
+                        <div class="answer note-status-label">
+                            <div class="new">
+                                New
+                            </div>
+                            <div class="wait-treatment">
+                                Waiting For Treatment
+                            </div>
+                            <div class="treating">
+                                Treating
+                            </div>
+                            <div class="waiting-medicine">
+                                Waiting For Medicine
+                            </div>
+                            <div class="done">
+                                Done
+                            </div>
                         </div>
-                    </td>
-                    <td class="actions">
-                        <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}" class="edit">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
-                        </a>
-                        <a th:data-patient-id="${patient.id}" th:data-post="@{/admin/patient/management/delete/{patient_id}(patient_id=${patient.id})}" class="delete">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nOWTMQrDMAxF/3E6JPdobxRnythzNfQSHtshRDnEDwYVhOnguMpQLBCYb/yf0MdAE0VgIsCs77Vmzy9mLOy5BDD/AHigjWLlitAsIBIYCIjRNtWiByCo1ikkda/a6AGQZG4g9ixeGchnar2/EFg8Q5YzAZvZ+SkrCsZwzTJxCTkmSDatqBbb/cnvCsDrCOCWHhwxJ3AtBvxV7YsdvyZrzBIdAAAAAElFTkSuQmCC">
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="question">
-                <span>Status ?</span>
-                <div class="answer note-status-label">
-                    <div class="new">
-                        New
-                    </div>
-                    <div class="wait-treatment">
-                        Waiting For Treatment
-                    </div>
-                    <div class="treating">
-                        Treating
-                    </div>
-                    <div class="waiting-medicine">
-                        Waiting For Medicine
-                    </div>
-                    <div class="done">
-                        Done
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="announcement-wrapper"></div>
 </div>
 <div id="confirmModal" style="display: none;">
     <div class="modal-content">

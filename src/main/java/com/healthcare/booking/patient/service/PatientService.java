@@ -4,6 +4,9 @@ import com.healthcare.booking.patient.model.PatientModel;
 import com.healthcare.booking.patient.repository.PatientRepository;
 import com.healthcare.booking.patient.spec.PatientSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +20,11 @@ public class PatientService {
     @Autowired
     private PatientSpecification patientSpecification;
 
-    public List<PatientModel> getListPatient() {
+    public List<PatientModel> getListPatient(Integer num) {
+        if (num != null) {
+            Pageable topFive = PageRequest.of(0, 5);
+            return this.patientRepository.select5NewestPatients(topFive);
+        }
         return this.patientRepository.findAll();
     }
 
