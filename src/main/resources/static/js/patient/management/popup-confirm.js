@@ -11,12 +11,12 @@ $(document).ready(function () {
                 url: url,
                 type: 'GET',
                 success: function (response) {
-                    $("#confirmModal").fadeOut(); // Hide confirmation modal
-                    $("#successPopup").fadeIn(); // Show success popup
+                    $("#confirmModal").fadeOut();
+                    $("#successPopup").fadeIn();
                 },
                 error: function (error) {
-                    $("#confirmModal").fadeOut(); // Hide confirmation modal
-                    $("#errorPopup").fadeIn(); // Show error popup
+                    $("#confirmModal").fadeOut();
+                    $("#errorPopup").fadeIn();
                 }
             });
         }

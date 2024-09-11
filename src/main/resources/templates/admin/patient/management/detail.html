@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:replace="~{admin/aside-navigation::aside}"></div>
-<div th:class="main-content_container">
+<div class="main-content_container show">
   <div th:class="container">
     <div class="form-detail-wrapper">
       <form id="patient-form" action="#" th:action="@{/admin/patient/management/save}" th:object="${patient}" method="post">

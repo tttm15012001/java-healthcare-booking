@@ -64,7 +64,7 @@ $(document).ready(function () {
         /* Will be replaced by ajax call */
         if (newUrl !== window.location.href) {
             $.ajax({
-                url: '/admin/patient/management/filter', // Adjust the URL to your filter endpoint
+                url: '/admin/patient/management/filter',
                 method: 'GET',
                 data: params.reduce((acc, cur) => ({ ...acc, [cur.fieldName]: cur.value }), {}),
                 success: function(response) {
