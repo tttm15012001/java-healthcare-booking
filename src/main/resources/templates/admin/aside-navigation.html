@@ -12,10 +12,10 @@
         <hr class="horizontal dark mt-0">
         <div class="collapse nav-list-wrapper" id="nav-list-wrapper">
             <ul class="nav-list">
-                <li class="nav-item dashboard active"><a th:href="@{/admin}">Dashboard</a></li>
+                <li class="nav-item dashboard" data-class-page="dashboard-page"><a th:href="@{/admin}">Dashboard</a></li>
                 <li class="nav-item health-care-request"><a href="#">Health Care Request</a></li>
                 <li class="nav-item time-table"><a href="#">Time Table</a></li>
-                <li class="nav-item patient-management"><a th:href="@{/admin/patient/management}">Patient Management</a></li>
+                <li class="nav-item patient-management" data-class-page="patient-management-page"><a th:href="@{/admin/patient/management}">Patient Management</a></li>
                 <li class="nav-item doctor-management"><a href="#">Doctor Management</a></li>
             </ul>
         </div>
