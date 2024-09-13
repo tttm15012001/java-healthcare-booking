@@ -4,6 +4,7 @@ import com.healthcare.booking.patient.provider.PatientDataProvider;
 import com.healthcare.booking.patient.model.PatientModel;
 import com.healthcare.booking.patient.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +19,26 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping
-    public String getListPatients(@RequestParam(required = false) Map<String, String> filterParams, Model model) {
-        List<PatientModel> listPatients = this.patientService.getListPatientWithFilter(filterParams);
+    public String getListPatients(
+            @RequestParam(required = false) Map<String, String> filterParams,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+
+        Page<PatientModel> pagePatients = this.patientService.getListPatientWithFilter(filterParams, page, size);
+
         model.addAttribute("filters", PatientDataProvider.FILTER_OPTIONS);
-        model.addAttribute("patients", listPatients);
+        model.addAttribute("patients", pagePatients.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pagePatients.getTotalPages());
+
         return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "all";
     }
 
     @GetMapping({"/filter", "/filter/"})
     @ResponseBody
     public List<PatientModel> filterPatients(@RequestParam(required = false) Map<String, String> filterParams) {
-        return this.patientService.getListPatientWithFilter(filterParams);
+        return this.patientService.getListPatient(5);
     }
 
     @GetMapping({"/view/{patient_id}", "/view/{patient_id}/"})

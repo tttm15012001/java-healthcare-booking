@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +29,9 @@ public class PatientService {
         return this.patientRepository.findAll();
     }
 
-    public List<PatientModel> getListPatientWithFilter(Map<String, String> filterParams) {
-        return this.patientRepository.findAll(patientSpecification.filterBy(filterParams));
+    public Page<PatientModel> getListPatientWithFilter(Map<String, String> filterParams, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        return this.patientRepository.findAll(patientSpecification.filterBy(filterParams), pageable);
     }
 
     public PatientModel getPatientById(Long id) {

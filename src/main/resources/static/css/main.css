@@ -6,6 +6,36 @@ body table p, body table span {
     color: #424242;
 }
 
+.pagination {
+    float: right;
+
+    span,
+    a {
+        position: relative;
+        display: inline-block;
+        background: #BDBDBD;
+        z-index: 2;
+        width: 90px;
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+        color: black;
+        font-size: 13px;
+        font-weight: bold;
+        border-radius: 10px;
+
+        &.page-num {
+            width: 42px;
+            font-weight: normal;
+
+            &.current {
+                background: #EEEEEE;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
 .question {
     position: relative;
     font-size: 13px;
