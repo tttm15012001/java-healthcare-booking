@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,14 @@ public class PatientController {
                                              @RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "10") int size) {
         Page<PatientModel> pagePatients = this.patientService.getListPatientWithFilter(filterParams, page, size);
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("patients", pagePatients.getContent());
+//        response.put("currentPage", pagePatients.getNumber());
+//        response.put("totalPages", pagePatients.getTotalPages());
+//        response.put("totalItems", pagePatients.getTotalElements());
+//        response.put("pageSize", pagePatients.getSize());
+//
+//        return response;
         return new PatientResponseFilterDTO(
             pagePatients.getContent(),
             pagePatients.getNumber(),
