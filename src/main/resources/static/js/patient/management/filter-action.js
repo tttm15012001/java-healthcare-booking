@@ -64,41 +64,44 @@ $(document).ready(function () {
         /* Will be replaced by ajax call */
         if (newUrl !== window.location.href) {
             $.ajax({
-                url: '/admin/patient/management/filter',
+                url: '/admin/patient/management',
                 method: 'GET',
                 data: params.reduce((acc, cur) => ({ ...acc, [cur.fieldName]: cur.value }), {}),
                 success: function(response) {
                     window.history.pushState({}, '', newUrl);
-                    patientTable.empty();
-
-                    if (response.length > 0) {
-                        $.each(response, function(index, patient) {
-                            let status = patient.status;
-                            let classStatus = getClassStatus(status);
-                            let row =
-                                `<tr>
-                                    <td>${patient.fullName}</td>
-                                    <td>${patient.patientCode}</td>
-                                    <td>${patient.createdAt}</td>
-                                    <td>${patient.gender}</td>
-                                    <td>
-                                        <div class="status ${classStatus}"><div>
-                                    </td>
-                                    <td class="actions">
-                                        <a href="/admin/patient/management/view/${patient.id}" class="edit"></a>
-                                        <a href="/admin/patient/management/delete/${patient.id}" class="delete"></a>
-                                    </td>
-                                </tr>`;
-                            let $newRow = $(row).appendTo(patientTable);
-                            let actionEdit = $(".action-template .action-edit").html();
-                            let actionDelete = $(".action-template .action-delete").html();
-                            $newRow.find('.actions .edit').html(actionEdit);
-                            $newRow.find('.actions .delete').html(actionDelete);
-                        });
-                    } else {
-                        // If no patients match the filter criteria
-                        patientTable.append('<tr><td colspan="5">No patients found</td></tr>');
-                    }
+                    let tempDiv = $('<div></div>').html(response);
+                    let filteredContent = tempDiv.find('.main-table-content').html();
+                    $('.main-table-content').html(filteredContent);
+                    // patientTable.empty();
+                    //
+                    // if (response.length > 0) {
+                    //     $.each(response, function(index, patient) {
+                    //         let status = patient.status;
+                    //         let classStatus = getClassStatus(status);
+                    //         let row =
+                    //             `<tr>
+                    //                 <td>${patient.fullName}</td>
+                    //                 <td>${patient.patientCode}</td>
+                    //                 <td>${patient.createdAt}</td>
+                    //                 <td>${patient.gender}</td>
+                    //                 <td>
+                    //                     <div class="status ${classStatus}"><div>
+                    //                 </td>
+                    //                 <td class="actions">
+                    //                     <a href="/admin/patient/management/view/${patient.id}" class="edit"></a>
+                    //                     <a href="/admin/patient/management/delete/${patient.id}" class="delete"></a>
+                    //                 </td>
+                    //             </tr>`;
+                    //         let $newRow = $(row).appendTo(patientTable);
+                    //         let actionEdit = $(".action-template .action-edit").html();
+                    //         let actionDelete = $(".action-template .action-delete").html();
+                    //         $newRow.find('.actions .edit').html(actionEdit);
+                    //         $newRow.find('.actions .delete').html(actionDelete);
+                    //     });
+                    // } else {
+                    //     // If no patients match the filter criteria
+                    //     patientTable.append('<tr><td colspan="5">No patients found</td></tr>');
+                    // }
                 },
                 error: function(error) {
                     console.error('Error during filtering:', error);
