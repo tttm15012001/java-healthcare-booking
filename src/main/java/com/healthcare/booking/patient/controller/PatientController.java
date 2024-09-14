@@ -3,6 +3,7 @@ package com.healthcare.booking.patient.controller;
 import com.healthcare.booking.patient.provider.PatientDataProvider;
 import com.healthcare.booking.patient.model.PatientModel;
 import com.healthcare.booking.patient.service.PatientService;
+import com.healthcare.booking.patient.spec.PatientResponseFilterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -35,10 +36,19 @@ public class PatientController {
         return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "all";
     }
 
-    @GetMapping({"/filter", "/filter/"})
+    @GetMapping(value = {"/filter", "/filter/"}, produces = "application/json")
     @ResponseBody
-    public List<PatientModel> filterPatients(@RequestParam(required = false) Map<String, String> filterParams) {
-        return this.patientService.getListPatient(5);
+    public PatientResponseFilterDTO filterPatients(@RequestParam(required = false) Map<String, String> filterParams,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "10") int size) {
+        Page<PatientModel> pagePatients = this.patientService.getListPatientWithFilter(filterParams, page, size);
+        return new PatientResponseFilterDTO(
+            pagePatients.getContent(),
+            pagePatients.getNumber(),
+            pagePatients.getTotalPages(),
+            pagePatients.getTotalElements(),
+            pagePatients.getSize()
+        );
     }
 
     @GetMapping({"/view/{patient_id}", "/view/{patient_id}/"})
