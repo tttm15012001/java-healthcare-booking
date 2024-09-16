@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:replace="~{admin/aside-navigation::aside}"></div>
-<div class="main-content_container" data-class-page="patient-management-page">
+<div class="main-content_container patient-management-page" data-class-page="patient-management-page">
     <div th:class="container">
         <div class="manage-center-wrapper">
             <div class="manage-patient-wrapper">
@@ -69,7 +69,7 @@
                             <th> Created At </th>
                             <th> Gender </th>
                             <th> Status </th>
-                            <th> Actions </th>
+                            <th th:if="${showColumnAction}"> Actions </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,7 +91,7 @@
                             'status-unknown'))))">
                                 </div>
                             </td>
-                            <td class="actions">
+                            <td th:if="${showColumnAction}" class="actions">
                                 <a th:href="@{/admin/patient/management/view/{patient_id}(patient_id=${patient.id})}" class="edit">
                                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPUlEQVR4nO2Yv2/TUBDHLYTExsDAWhWQgIGlE1KJyh+AECAmGt+ZstDcWQghsWaCMrEwAp1p13Zj6IJQ1RlBfZfyByCxAAGJX0EvSY0LVRTbL31O9L7SLZGe8/ncO784DgIfn8lPLPNH77xbOB2MYziJaqTwkRU7pPg4GKfQTnSOFL8Y+N1aTMKzwbikuTF3mARfpAIC7dut+vGg6iHFi6y4bARMseAKKf6IBa4XvuhicvMEKz4ihXVSfGm1JLqRhU/HRnAllUiiWmF4TqJrLPAtO4vWSvBps9M89B98v8wIFQZPOz8ieFJ4NhgefrEClBIwYzNq+FjCuZHA9zoD62MLb2JuMsvwz3fhGzvhBVb8/C88tUIMbMWmQBZ+mM5zmZNnBALL2c6TwqdBnWfFe+a7qyKQG557zz6VEEjhuYWzw8JzRQQKw3MFBErBs1sBWE3hk6i231G557QRvL//qeVCQPBnLHBy0Dk/DDy72wFYNevMDrDi27xjw64FYsHz3XUtuFoGnp0ICL5O1wm8+gsCH2LB+WHGhl0KkMJSF3Abz/Q/22wohrHER/LCsxOB/p8PM/8NrZ/KXufum1vH8j6a08HfA/CdJLy0d300Yx7iSPBrvsMAnR2jv1lggwSfsMBWXmh2LmCxyAsEfgc6foTKZgJuYrD+WiVHrdkQWHK2A4IPSgvwdn26yK9o6RJoN94vTJUW6EooXjlQCYE2KVwObMZ0oz9Oa9Zfr2uvzLVZ8KG1zvv4+Pj4THz+AJFa1NNjqLoOAAAAAElFTkSuQmCC">
                                 </a>
@@ -102,55 +102,55 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <a th:if="${currentPage > 0}"
-                           th:href="@{/admin/patient/management(page=${currentPage - 1}, size=${size})}">
-                            Previous
-                        </a>
+                </div>
+                <div class="pagination">
+                    <a th:if="${currentPage > 0}"
+                       th:href="@{/admin/patient/management(page=${currentPage - 1}, size=${size})}">
+                        Previous
+                    </a>
 
-                        <span th:if="${currentPage == 0}" style="color: gray;">Previous</span>
+                    <span th:if="${currentPage == 0}" style="color: gray;">Previous</span>
 
-                        <a th:each="i : ${#numbers.sequence(currentPage - 2, currentPage - 1)}"
-                           th:if="${i >= 0}"
-                           th:href="@{/admin/patient/management(page=${i})}"
-                           th:text="${i + 1}"
-                           class="page-num">
-                        </a>
+                    <a th:each="i : ${#numbers.sequence(currentPage - 2, currentPage - 1)}"
+                       th:if="${i >= 0}"
+                       th:href="@{/admin/patient/management(page=${i})}"
+                       th:text="${i + 1}"
+                       class="page-num">
+                    </a>
 
-                        <span th:text="${currentPage + 1}" style="font-weight: bold;" class="page-num current"></span>
+                    <span th:text="${currentPage + 1}" style="font-weight: bold;" class="page-num current"></span>
 
-                        <a th:each="i : ${#numbers.sequence(currentPage + 1, currentPage + 2)}"
-                           th:if="${i < totalPages}"
-                           th:href="@{/admin/patient/management(page=${i})}"
-                           th:text="${i + 1}"
-                           class="page-num">
-                        </a>
+                    <a th:each="i : ${#numbers.sequence(currentPage + 1, currentPage + 2)}"
+                       th:if="${i < totalPages}"
+                       th:href="@{/admin/patient/management(page=${i})}"
+                       th:text="${i + 1}"
+                       class="page-num">
+                    </a>
 
-                        <a th:if="${currentPage < totalPages - 1}"
-                           th:href="@{/admin/patient/management(page=${currentPage + 1})}">
-                            Next
-                        </a>
+                    <a th:if="${currentPage < totalPages - 1}"
+                       th:href="@{/admin/patient/management(page=${currentPage + 1})}">
+                        Next
+                    </a>
 
-                        <span th:if="${currentPage == totalPages - 1}" style="color: gray;">Next</span>
-                    </div>
-                    <div class="question">
-                        <span>Status ?</span>
-                        <div class="answer note-status-label">
-                            <div class="new">
-                                New
-                            </div>
-                            <div class="wait-treatment">
-                                Waiting For Treatment
-                            </div>
-                            <div class="treating">
-                                Treating
-                            </div>
-                            <div class="waiting-medicine">
-                                Waiting For Medicine
-                            </div>
-                            <div class="done">
-                                Done
-                            </div>
+                    <span th:if="${currentPage == totalPages - 1}" style="color: gray;">Next</span>
+                </div>
+                <div class="question">
+                    <span>Status ?</span>
+                    <div class="answer note-status-label">
+                        <div class="new">
+                            New
+                        </div>
+                        <div class="wait-treatment">
+                            Waiting For Treatment
+                        </div>
+                        <div class="treating">
+                            Treating
+                        </div>
+                        <div class="waiting-medicine">
+                            Waiting For Medicine
+                        </div>
+                        <div class="done">
+                            Done
                         </div>
                     </div>
                 </div>

@@ -33,6 +33,7 @@ public class PatientController {
         model.addAttribute("patients", pagePatients.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pagePatients.getTotalPages());
+        model.addAttribute("showColumnAction", true);
 
         return PatientDataProvider.PATIENT_MANAGEMENT_PATH_TEMPLATE + "all";
     }

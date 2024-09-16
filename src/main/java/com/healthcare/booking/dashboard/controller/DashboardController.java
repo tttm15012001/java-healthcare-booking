@@ -20,6 +20,7 @@ public class DashboardController {
     public String dashboard(Model model) {
         List<PatientModel> patients = this.patientService.getListPatient(5);
         model.addAttribute("patients", patients);
+        model.addAttribute("showColumnAction", false);
         return PatientDataProvider.ADMIN_PATH_TEMPLATE + "dashboard";
     }
 }

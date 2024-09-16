@@ -11,12 +11,18 @@
 <body>
 <!-- Include the fragment from aside-navigation.html -->
 <div th:replace="~{admin/aside-navigation::aside}"></div>
-<div class="main-content_container" data-class-page="dashboard-page">
+<div class="main-content_container dashboard-page" data-class-page="dashboard-page">
     <div th:class="container">
         <div class="manage-center-wrapper">
             <div class="manage-patient-wrapper">
-                <div class="main-table-content" th:replace="~{admin/patient/management/all::patient-table}">
-
+                <div class="main-table-content" th:replace="~{admin/patient/management/all::patient-table}" th:classappend="'new-class'">
+                </div>
+                <div>
+                    <a th:href="@{/admin/patient/management}">
+                        <button>
+                            <span>View More</span>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
