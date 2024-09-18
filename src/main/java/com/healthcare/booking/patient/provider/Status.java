@@ -1,10 +1,11 @@
 package com.healthcare.booking.patient.provider;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.healthcare.booking.utils.EnumUtils;
+import com.healthcare.booking.utils.StatusLabelEnum;
 
-public enum Status {
+import java.util.Map;
+
+public enum Status implements StatusLabelEnum {
     NEW(0, "New"),
     WAIT_TREATMENT(1, "Waiting For Treatment"),
     PENDING(2, "Treating"),
@@ -19,25 +20,21 @@ public enum Status {
         this.label = label;
     }
 
+    @Override
     public int getCode() {
         return code;
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
 
     public static String getLabelByCode(int code) {
-        for (Status status : values()) {
-            if (status.getCode() == code) {
-                return status.getLabel();
-            }
-        }
-        return "Unknown";
+        return EnumUtils.getLabelByCode(Status.class, code);
     }
 
     public static Map<Integer, String> getAllOptions() {
-        return Stream.of(Status.values())
-                .collect(Collectors.toMap(Status::getCode, Status::getLabel));
+        return EnumUtils.getAllOptions(Status.class);
     }
 }
