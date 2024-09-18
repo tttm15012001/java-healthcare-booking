@@ -1,0 +1,78 @@
+.weekly-calendar-container {
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+
+        .refresh-btn {
+            background-color: #f9c600;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    }
+
+    .calendar-grid {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+
+        .day-column {
+            width: 14%;
+            padding: 3px;
+
+            .day-header {
+                background-color: #eee;
+                padding: 10px;
+                text-align: center;
+
+                .day-date {
+                    font-size: 15px;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+
+        .appointment-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px 10px 0 10px;
+            margin: 5px 0;
+
+            &.status-waiting {
+                border-left: 4px solid #ccc;
+            }
+
+            &.status-diagnosing {
+                border-left: 4px solid #FFEA00;
+            }
+
+            &.status-testing {
+                border-left: 4px solid #F44336;
+            }
+
+            &.status-complete {
+                border-left: 4px solid #76FF03;
+            }
+
+            .doctor-name {
+                font-size: 13px;
+                margin-bottom: 25px !important;
+            }
+
+            .patient-name,
+            .appointment-status {
+                font-size: 14.5px;
+                line-height: 20px;
+                height: 40px;
+
+                span {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

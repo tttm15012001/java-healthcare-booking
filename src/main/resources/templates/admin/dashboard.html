@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout::header"></head>
+<head th:replace="~{layout::header}"></head>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +13,15 @@
 <div th:replace="~{admin/aside-navigation::aside}"></div>
 <div class="main-content_container dashboard-page" data-class-page="dashboard-page">
     <div th:class="container">
-        <div class="manage-center-wrapper">
-            <div class="manage-patient-wrapper">
-                <div class="main-table-content" th:replace="~{admin/patient/management/all::patient-table}" th:classappend="'new-class'">
-                </div>
-                <div>
-                    <a th:href="@{/admin/patient/management}">
-                        <button>
-                            <span>View More</span>
-                        </button>
-                    </a>
-                </div>
+        <div class="manage-patient-wrapper">
+            <div class="main-table-content" th:replace="~{admin/patient/management/all::patient-table}" th:classappend="'new-class'">
+            </div>
+            <div>
+                <a th:href="@{/admin/patient/management}">
+                    <button>
+                        <span>View More</span>
+                    </button>
+                </a>
             </div>
         </div>
     </div>
