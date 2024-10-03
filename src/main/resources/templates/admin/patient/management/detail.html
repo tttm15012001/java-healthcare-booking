@@ -5,62 +5,71 @@
   <link rel="stylesheet" href="/css/admin/patient/patient_detail.css">
 </head>
 <body>
-<div th:replace="~{admin/aside-navigation::aside}"></div>
-<div class="main-content_container">
+<div class="main-wrapper" data-class-page="patient-management-page">
   <div th:class="container">
-    <div class="form-detail-wrapper">
-      <form id="patient-form" action="#" th:action="@{/admin/patient/management/save}" th:object="${patient}" method="post">
-        <div class="form-header">
-          <h1 th:text="${title}">Patient Details</h1>
-          <div class="copy-wrapper">
-            <p th:if="${patient.patientCode}" class="patient-code" th:code-value="${patient.patientCode}">
-              Code:
-              <span th:text="${patient.patientCode}" class="form-control" readonly></span>
-            </p>
-            <p class="copy-success">Copied</p>
-          </div>
+    <div class="row">
+      <div th:replace="~{admin/aside-navigation::aside('')}"></div>
+      <div class="main-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="form-detail-wrapper">
+          <form id="patient-form" action="#" th:action="@{/admin/patient/management/save}" th:object="${patient}" method="post">
+            <div class="form-header">
+              <h1 th:text="${title}">Patient Details</h1>
+              <div class="copy-wrapper">
+                <p th:if="${patient.patientCode}" class="patient-code" th:code-value="${patient.patientCode}">
+                  Code:
+                  <span th:text="${patient.patientCode}" class="form-control" readonly></span>
+                </p>
+                <p class="copy-success">Copied</p>
+              </div>
+            </div>
+            <div class="form-content">
+              <div class="form-element hidden-div" th:if="${patient.id}">
+                <input type="text" id="id" name="id" th:value="${patient.id}" readonly class="form-control"/>
+              </div>
+              <div class="form-element hidden-div" th:if="${patient.patientCode}">
+                <input type="text" id="patientCode" name="patientCode" th:value="${patient.patientCode}" readonly class="form-control"/>
+              </div>
+
+              <div class="form-element form-input-element input-placeholder">
+                <input type="text" placeholder="Full Name" id="fullName" name="fullName" th:value="${patient.fullName}" required class="form-control" />
+              </div>
+
+              <div class="form-element form-input-element input-placeholder">
+                <input type="email" placeholder="Email" id="email" name="email" th:value="${patient.email}" class="form-control" />
+              </div>
+
+              <div class="form-element form-input-element input-placeholder">
+                <input type="text" placeholder="Phone Number" id="phoneNumber" name="phoneNumber" th:value="${patient.phoneNumber}" required class="form-control validate-phone" />
+              </div>
+
+              <div class="form-element form-input-element input-placeholder">
+                <input type="text" placeholder="Input Your Detail Address" id="address" th:field="${patient.address}" required class="form-control"/>
+              </div>
+
+              <div class="form-element form-checkbox-element">
+                <input type="date" id="birthday" th:field="${patient.birthday}" required />
+              </div>
+
+              <div class="form-element form-checkbox-element">
+                <label>
+                  <input type="radio" name="gender" value="MALE" th:checked="${patient.gender == 'MALE'}"> Male
+                </label>
+                <label>
+                  <input type="radio" name="gender" value="FEMALE" th:checked="${patient.gender == 'FEMALE'}"> Female
+                </label>
+              </div>
+            </div>
+            <div class="actions d-flex justify-content-end">
+              <div class="button-request-health-care" style="float: right;">
+                <button type="submit" class="btn btn-primary" th:text="${patient.id != null ? 'Update Patient' : 'Create Patient'}"></button>
+              </div>
+              <div class="button-submit-wrapper" style="float: right;">
+                <button type="submit" class="btn btn-primary" th:text="${patient.id != null ? 'Update Patient' : 'Create Patient'}"></button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="form-content">
-          <div class="form-element hidden-div" th:if="${patient.id}">
-            <input type="text" id="id" name="id" th:value="${patient.id}" readonly class="form-control"/>
-          </div>
-          <div class="form-element hidden-div" th:if="${patient.patientCode}">
-            <input type="text" id="patientCode" name="patientCode" th:value="${patient.patientCode}" readonly class="form-control"/>
-          </div>
-
-          <div class="form-element form-input-element input-placeholder">
-            <input type="text" placeholder="Full Name" id="fullName" name="fullName" th:value="${patient.fullName}" required class="form-control" />
-          </div>
-
-          <div class="form-element form-input-element input-placeholder">
-            <input type="email" placeholder="Email" id="email" name="email" th:value="${patient.email}" class="form-control" />
-          </div>
-
-          <div class="form-element form-input-element input-placeholder">
-            <input type="text" placeholder="Phone Number" id="phoneNumber" name="phoneNumber" th:value="${patient.phoneNumber}" required class="form-control validate-phone" />
-          </div>
-
-          <div class="form-element form-input-element input-placeholder">
-            <input type="text" placeholder="Input Your Detail Address" id="address" th:field="${patient.address}" required class="form-control"/>
-          </div>
-
-          <div class="form-element form-checkbox-element">
-            <input type="date" id="birthday" th:field="${patient.birthday}" required />
-          </div>
-
-          <div class="form-element form-checkbox-element">
-            <label>
-              <input type="radio" name="gender" value="MALE" th:checked="${patient.gender == 'MALE'}"> Male
-            </label>
-            <label>
-              <input type="radio" name="gender" value="FEMALE" th:checked="${patient.gender == 'FEMALE'}"> Female
-            </label>
-          </div>
-        </div>
-        <div class="button-submit-wrapper" style="float: right;">
-          <button type="submit" class="btn btn-primary" th:text="${patient.id != null ? 'Update Patient' : 'Create Patient'}"></button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

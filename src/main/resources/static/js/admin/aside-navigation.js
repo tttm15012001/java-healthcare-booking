@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let navItems = $('#nav-list-wrapper .nav-item');
-    let mainContent = $('.main-content_container');
+    let mainContent = $('.main-wrapper');
     mainContent.addClass('show');
     let className = mainContent.attr('data-class-page');
     $('#nav-list-wrapper li[data-class-page="' + className + '"]').addClass('active');

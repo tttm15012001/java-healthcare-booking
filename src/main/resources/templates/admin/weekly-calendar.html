@@ -8,32 +8,36 @@
     <link rel="stylesheet" th:href="@{/css/admin/weekly-calendar.css}">
 </head>
 <body>
-<div th:replace="~{admin/aside-navigation::aside}"></div>
-<div class="main-content_container weekly-calendar-page" data-class-page="weekly-calendar-page">
+<div class="main-wrapper weekly-calendar-page" data-class-page="weekly-calendar-page">
     <div th:class="container">
-        <div class="weekly-calendar-container">
-            <div class="header">
-                <h1>Weekly Calendar</h1>
-                <button class="refresh-btn">Refresh All</button>
-            </div>
-
-            <div class="calendar-grid">
-                <div class="day-column" th:each="entry : ${weeklyAppointments}">
-                    <div class="day-header">
-                        <div class="day-date"><span th:text="${#temporals.format(entry.key, 'dd')}"></span></div>
-                        <div class="day-name"><span th:text="${#temporals.format(entry.key, 'EEEE')}"></span></div>
+        <div class="row">
+            <div th:replace="~{admin/aside-navigation::aside('')}"></div>
+            <div class="main-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="weekly-calendar-container">
+                    <div class="header">
+                        <h1>Weekly Calendar</h1>
+                        <button class="refresh-btn">Refresh All</button>
                     </div>
 
-                    <div th:each="appointment : ${entry.value}">
-                        <div class="appointment-card" th:classappend="
+                    <div class="calendar-grid">
+                        <div class="day-column" th:each="entry : ${weeklyAppointments}">
+                            <div class="day-header">
+                                <div class="day-date"><span th:text="${#temporals.format(entry.key, 'dd')}"></span></div>
+                                <div class="day-name"><span th:text="${#temporals.format(entry.key, 'EEEE')}"></span></div>
+                            </div>
+
+                            <div th:each="appointment : ${entry.value}">
+                                <div class="appointment-card" th:classappend="
                             ${appointment.status == 0} ? 'status-waiting' :
                             (${appointment.status == 1} ? 'status-diagnosing' :
                             (${appointment.status == 2} ? 'status-testing' :
                             (${appointment.status == 3} ? 'status-complete' :
                             'status-unknown')))">
-                            <b><p class="doctor-name" th:text="${appointment.doctor.name}"></p></b>
-                            <p class="patient-name">Patient: <span th:text="${appointment.patient.fullName}"></span></p>
-                            <p class="appointment-status">Status: <span th:text="${appointment.statusLabel}"></span></p>
+                                    <b><p class="doctor-name" th:text="${appointment.doctor.name}"></p></b>
+                                    <p class="patient-name">Patient: <span th:text="${appointment.patient.fullName}"></span></p>
+                                    <p class="appointment-status">Status: <span th:text="${appointment.statusLabel}"></span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
