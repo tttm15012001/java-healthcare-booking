@@ -18,8 +18,10 @@
         display: flex;
         justify-content: space-between;
         margin-top: 30px;
+        overflow-x: scroll;
 
         .day-column {
+            min-width: 190px;
             width: 14%;
             padding: 3px;
 

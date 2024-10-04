@@ -2,16 +2,15 @@
     position: relative;
 
     .form-detail-wrapper {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 0%);
         background: #fff;
-        width: 60%;
+        width: 90%;
         height: fit-content;
         max-height: 600px;
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
         -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
         padding: 30px 50px;
+        margin: 0 auto;
+        border-radius: 40px;
 
         .form-header {
             text-align: center;
