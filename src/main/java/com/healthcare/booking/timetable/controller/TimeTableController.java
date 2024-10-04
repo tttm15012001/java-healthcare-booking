@@ -1,7 +1,7 @@
 package com.healthcare.booking.timetable.controller;
 
 import com.healthcare.booking.patient.provider.PatientDataProvider;
-import com.healthcare.booking.timetable.model.TimeTableModel;
+import com.healthcare.booking.timetable.provider.TimeTableDTO;
 import com.healthcare.booking.timetable.service.TimeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class TimeTableController {
 
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
 
-        Map<LocalDate, List<TimeTableModel>> weeklyAppointments =
+        Map<LocalDate, List<TimeTableDTO>> weeklyAppointments =
             startOfWeek.datesUntil(startOfWeek.plusDays(7))
                 .collect(Collectors.toMap(
                     date -> date,
@@ -39,5 +39,11 @@ public class TimeTableController {
         model.addAttribute("startOfWeek", startOfWeek);
 
         return PatientDataProvider.ADMIN_PATH_TEMPLATE + "weekly-calendar";
+    }
+
+    @GetMapping({"refresh", "refresh/"})
+    public String refresh(Model model) {
+        this.timeTableService.clearAllAppointmentsCache();
+        return "redirect:/admin/weekly-calendar";
     }
 }
