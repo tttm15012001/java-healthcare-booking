@@ -1,9 +1,11 @@
 package com.healthcare.booking.timetable.repo;
 
 import com.healthcare.booking.timetable.model.TimeTableModel;
+import com.healthcare.booking.timetable.provider.StatusCount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -14,5 +16,13 @@ public interface TimeTableRepository extends JpaRepository<TimeTableModel, Long>
 
     Page<TimeTableModel> findByPatientId(Long patientId, Pageable pageable);
 
-    List<TimeTableModel> findByAppointmentTimeBetween(LocalDateTime from, LocalDateTime to);
+    List<TimeTableModel> findByAppointmentTimeBetweenAndStatusNot(LocalDateTime from, LocalDateTime to, Integer status);
+
+    long countByAppointmentTimeBetween(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT new com.healthcare.booking.timetable.provider.StatusCount(t.status, COUNT(t)) " +
+            "FROM TimeTableModel t " +
+            "WHERE t.appointmentTime BETWEEN :start AND :end " +
+            "GROUP BY t.status")
+    List<StatusCount> countStatusesBetween(LocalDateTime start, LocalDateTime end);
 }

@@ -22,18 +22,15 @@ public class PatientSpecification implements EntitySpecification<PatientModel> {
                 String fieldValue = filterParams.get(fieldName);
 
                 if (fieldValue != null && !fieldValue.isEmpty()) {
-                    switch (filterType) {
-                        case "like":
-                            specification = specification.and((root1, query1, criteriaBuilder1) ->
+                    specification = switch (filterType) {
+                        case "like" -> specification.and((root1, query1, criteriaBuilder1) ->
                                 criteriaBuilder1.like(criteriaBuilder1.lower(root1.get(fieldName)), "%" + fieldValue.toLowerCase() + "%")
-                            );
-                            break;
-                        case "equal":
-                            specification = specification.and((root1, query1, criteriaBuilder1) ->
+                        );
+                        case "equal" -> specification.and((root1, query1, criteriaBuilder1) ->
                                 criteriaBuilder1.equal(root1.get(fieldName), fieldValue)
-                            );
-                            break;
-                    }
+                        );
+                        default -> specification;
+                    };
                 }
             }
 

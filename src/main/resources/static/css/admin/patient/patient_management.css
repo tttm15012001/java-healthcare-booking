@@ -171,4 +171,17 @@
             object-fit: cover;
         }
     }
+
+    .actions-wrapper {
+        display: flex;
+        justify-content: center;
+
+        button {
+            width: fit-content;
+            height: fit-content;
+            padding: 8px 20px;
+            border: none;
+            margin: 0 auto;
+        }
+    }
 }

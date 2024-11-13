@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <script src="/js/lib/chart.js"></script>
     <link rel="stylesheet" th:href="@{/css/admin/aside-navigation.css}">
     <link rel="stylesheet" th:href="@{/css/admin/patient/patient_management.css}">
 </head>
@@ -15,12 +16,27 @@
         <div class="row">
             <div th:replace="~{admin/aside-navigation::aside('')}"></div>
             <div class="main-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="chart-report">
+                    <h1>Status Distribution Gauge</h1>
+
+                    <!-- Date Pickers for Selecting Date Range -->
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" th:value="${startDate}" onchange="updateReport()">
+
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" th:value="${endDate}" onchange="updateReport()">
+
+                    <!-- Chart Container -->
+                    <div class="chart-container" style="width: 100%; height: 400px;">
+                        <div id="reportChart" style="width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
                 <div class="manage-patient-wrapper">
                     <div class="main-table-content" th:replace="~{admin/patient/management/all::patient-table}" th:classappend="'new-class'">
                     </div>
-                    <div>
+                    <div class="actions-wrapper">
                         <a th:href="@{/admin/patient/management}">
-                            <button>
+                            <button class="view-more">
                                 <span>View More</span>
                             </button>
                         </a>
@@ -30,9 +46,84 @@
         </div>
     </div>
 </div>
-<!--<main class="main-content">-->
-<!--    <h1>Dashboard Content</h1>-->
-<!--</main>-->
+<script th:inline="javascript">
+    var statusPercentages = /*[[${statusPercentages}]]*/ {};
 
+    const chart = echarts.init(document.getElementById('reportChart'));
+
+    const data = [];
+    const colors = {
+        "Waiting": '#FF6347',
+        "Diagnosing": '#FFD700',
+        "Testing": '#1E90FF',
+        "Complete": '#32CD32'
+    };
+
+    for (let [key, value] of Object.entries(statusPercentages)) {
+        data.push({
+            value: value,
+            name: key,
+            itemStyle: {
+                color: colors[key] || '#E0E0E0'
+            }
+        });
+    }
+
+    const options = {
+        title: {
+            text: 'Status Distribution',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c}% ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: Object.keys(statusPercentages)
+        },
+        series: [
+            {
+                name: 'Status',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{b}: {c}%'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '16',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: true
+                },
+                data: data
+            }
+        ]
+    };
+
+    chart.setOption(options);
+
+    function updateReport() {
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        if (startDate && endDate) {
+            window.location.href = `/admin?startDate=${startDate}&endDate=${endDate}`;
+        }
+    }
+</script>
 </body>
 </html>

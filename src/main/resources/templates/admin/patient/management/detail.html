@@ -61,7 +61,9 @@
             </div>
             <div class="actions d-flex justify-content-end">
               <div class="button-request-health-care" style="float: right;">
-                <button type="submit" class="btn btn-primary"><span class="text">Request Health Care</span></button>
+                <a th:href="@{/admin/request-health-care}">
+                  <button type="submit" class="btn">Request Health Care</button>
+                </a>
               </div>
               <div class="button-submit-wrapper" style="float: right;">
                 <button type="submit" class="btn btn-primary" th:text="${patient.id != null ? 'Update Patient' : 'Create Patient'}"></button>

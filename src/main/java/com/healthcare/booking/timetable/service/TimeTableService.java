@@ -1,6 +1,7 @@
 package com.healthcare.booking.timetable.service;
 
 import com.healthcare.booking.timetable.model.TimeTableModel;
+import com.healthcare.booking.timetable.provider.Status;
 import com.healthcare.booking.timetable.provider.TimeTableDTO;
 import com.healthcare.booking.timetable.repo.TimeTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class TimeTableService {
 
     private static final String REDIS_KEY_PREFIX = "appointments::";
+    private static final String CACHE_NAME = "appointmentsCache";
 
     @Autowired
     private TimeTableRepository timeTableRepository;
@@ -44,7 +46,7 @@ public class TimeTableService {
 
         LocalDateTime start = date.atStartOfDay();
         LocalDateTime end = date.atTime(23, 59, 59);
-        List<TimeTableModel> appointments = this.timeTableRepository.findByAppointmentTimeBetween(start, end);
+        List<TimeTableModel> appointments = this.timeTableRepository.findByAppointmentTimeBetweenAndStatusNot(start, end, Status.COMPLETE.getCode());
 
         /* Chuyển đổi từ Timetable model sang DTO */
         List<TimeTableDTO> appointmentDTOs = appointments.stream()
@@ -76,6 +78,29 @@ public class TimeTableService {
     private String generateRedisKeyForDate(LocalDate date) {
         return REDIS_KEY_PREFIX + date.toString();
     }
+
+//    @Cacheable(value = CACHE_NAME, key = "#date.toString()")
+//    public List<TimeTableDTO> getAppointmentsForDate(LocalDate date) {
+//        LocalDateTime start = date.atStartOfDay();
+//        LocalDateTime end = date.atTime(23, 59, 59);
+//        List<TimeTableModel> appointments = this.timeTableRepository.findByAppointmentTimeBetween(start, end);
+//
+//        /* Chuyển đổi từ Timetable model sang DTO */
+//        return appointments.stream()
+//                .map(this::convertToDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @CacheEvict(value = CACHE_NAME, key = "#date.toString()")
+//    public void clearAppointmentsCacheForDate(LocalDate date) {
+//        /* Spring tự động xóa cache khi gọi phương thức này */
+//    }
+//
+//    // Xóa toàn bộ cache liên quan đến appointments
+//    @CacheEvict(value = CACHE_NAME, allEntries = true)
+//    public void clearAllAppointmentsCache() {
+//        /* Spring sẽ tự động xóa tất cả cache của appointments */
+//    }
 
     public TimeTableDTO convertToDTO(TimeTableModel timeTable) {
         TimeTableDTO dto = new TimeTableDTO();
