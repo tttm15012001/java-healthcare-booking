@@ -3,6 +3,7 @@ $(document).ready(function () {
         event.preventDefault();
         $(this).hide();
         $(".action-filter-close").show();
+        $('.main-table-content').css('height', 'calc(100% - 60px - 40px - 250px)');
         $(".wrapper-filter").slideDown();
     });
 
@@ -11,6 +12,9 @@ $(document).ready(function () {
         $(this).hide();
         $(".action-filter-show").show();
         $(".wrapper-filter").slideUp();
+        setTimeout(() => {
+            $('.main-table-content').css('height', 'calc(100% - 60px - 40px)');
+        }, 250);
     });
 
     $(".action-filter button.do").on('click', function (event) {

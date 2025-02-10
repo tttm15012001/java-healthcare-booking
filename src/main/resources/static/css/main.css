@@ -16,37 +16,67 @@ html, body {
     }
 }
 
+/* Width and height of scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Track (background of scrollbar) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+    margin: 20px 10px 20px 0;
+}
+
+/* Handle (scrolling thumb) */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 body table p, body table span {
     color: #424242;
 }
 
-.pagination {
-    width: fit-content;
-    margin: 15px auto;
-    column-gap: 5px;
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    span,
-    a {
-        position: relative;
-        display: inline-block;
-        background: #BDBDBD;
-        z-index: 2;
-        width: 90px;
-        text-align: center;
-        height: 30px;
-        line-height: 30px;
-        color: black;
-        font-size: 13px;
-        font-weight: bold;
-        border-radius: 10px;
+    .hc-pagination {
+        position: absolute;
+        bottom: 35px;
+        width: fit-content;
 
-        &.page-num {
-            width: 42px;
-            font-weight: normal;
+        span,
+        a {
+            position: relative;
+            display: inline-block;
+            background: #BDBDBD;
+            z-index: 2;
+            width: 90px;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            color: black;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 10px;
 
-            &.current {
-                background: #EEEEEE;
-                font-weight: bold;
+            &.page-num {
+                width: 42px;
+                font-weight: normal;
+
+                &.current {
+                    background: #EEEEEE;
+                    font-weight: bold;
+                }
             }
         }
     }
@@ -56,7 +86,7 @@ body table p, body table span {
     position: relative;
     font-size: 13px;
     font-weight: bold;
-    display: inline-block;
+    display: none;
     float: right;
     width: 100%;
 
