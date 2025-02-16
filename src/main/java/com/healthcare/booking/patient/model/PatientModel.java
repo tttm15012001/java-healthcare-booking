@@ -2,6 +2,7 @@ package com.healthcare.booking.patient.model;
 
 import com.healthcare.booking.patient.provider.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,7 @@ public class PatientModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is mandatory")
     private String fullName;
     @Column(name = "patient_code", unique = true, nullable = false)
     private String patientCode;

@@ -1,11 +1,15 @@
 package com.healthcare.booking.timetable.service;
 
+import com.healthcare.booking.patient.api.PaginationRequest;
+import com.healthcare.booking.patient.api.PaginationResponse;
+import com.healthcare.booking.timetable.api.TimeTableResponse;
 import com.healthcare.booking.timetable.model.TimeTableModel;
 import com.healthcare.booking.timetable.provider.Status;
 import com.healthcare.booking.timetable.provider.TimeTableDTO;
 import com.healthcare.booking.timetable.repo.TimeTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +17,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +39,10 @@ public class TimeTableService {
     public Page<TimeTableModel> getTimeTableByPatientId(Long patientId) {
         Pageable pageable = PageRequest.of(0, 5);
         return this.timeTableRepository.findByPatientId(patientId, pageable);
+    }
+
+    public void saveRequest(TimeTableModel request) {
+        this.timeTableRepository.save(request);
     }
 
     public List<TimeTableDTO> getAppointmentsForDate(LocalDate date) {
@@ -111,5 +121,82 @@ public class TimeTableService {
         dto.setPatientName(timeTable.getPatient().getFullName());
         dto.setDoctorName(timeTable.getDoctor().getName());
         return dto;
+    }
+
+    public PaginationResponse<TimeTableResponse> getTimeTablesByDateWithPagination(
+            PaginationRequest paginationRequest,
+            LocalDateTime startOfDay,
+            LocalDateTime endOfDay
+    ) {
+        List<TimeTableResponse> timeTables = new ArrayList<>();
+        Page<TimeTableModel> page;
+        if (paginationRequest.getPage() > 0 &&  paginationRequest.getSize() > 0) {
+            Pageable pageable = PageRequest.of(paginationRequest.getPage() - 1, paginationRequest.getSize());
+            page = this.timeTableRepository.findByAppointmentTimeBetween(startOfDay, endOfDay, pageable);
+        } else {
+            List<TimeTableModel> timeTableList = this.timeTableRepository.findByAppointmentTimeBetweenWithoutPageable(startOfDay, endOfDay);
+            page = new PageImpl<>(timeTableList);
+        }
+
+        page.getContent().forEach(item -> timeTables.add(this.buildTimeTableEntityResponse(item)));
+
+        return this.buildResponse(timeTables, page);
+    }
+
+    public TimeTableResponse getTimeTableDetailById(Long id) {
+        TimeTableModel timeTable = this.timeTableRepository.findById(id).orElse(null);
+
+        return this.buildTimeTableEntityResponse(timeTable);
+    }
+
+    public PaginationResponse<TimeTableResponse> filterTimeTable(PaginationRequest paginationRequest) {
+        List<TimeTableResponse> timeTable = new ArrayList<>();
+        Page<TimeTableModel> timeTablePage;
+        int requirePage = paginationRequest.getPage();
+        int requireSize = paginationRequest.getSize();
+
+        if (requirePage > 0 && requireSize > 0) {
+            Pageable pageable = PageRequest.of(requirePage - 1, requireSize);
+            timeTablePage = this.timeTableRepository.findAll(pageable);
+            timeTablePage.getContent().forEach((item) -> timeTable.add(this.buildTimeTableEntityResponse(item)));
+        } else {
+            List<TimeTableModel> timeTables = this.timeTableRepository.findAll();
+            timeTables.forEach((item) -> timeTable.add(this.buildTimeTableEntityResponse(item)));
+            timeTablePage = new PageImpl<>(timeTables);
+        }
+
+        return buildResponse(timeTable, timeTablePage);
+    }
+
+    private PaginationResponse<TimeTableResponse> buildResponse(
+            List<TimeTableResponse> timeTables,
+            Page<TimeTableModel> timeTablePage
+    ) {
+        PaginationResponse<TimeTableResponse> response = new PaginationResponse<>();
+        response.setItems(timeTables);
+        response.setTotalPages(timeTablePage.getTotalPages());
+        response.setTotalItems(timeTablePage.getTotalElements());
+        response.setSize(timeTablePage.getSize());
+        response.setPage(timeTablePage.getNumber() + 1);
+
+        return response;
+    }
+
+    private TimeTableResponse buildTimeTableEntityResponse(TimeTableModel timeTable) {
+        if (timeTable == null) {
+            return null;
+        }
+
+        TimeTableResponse timeTableResponse = new TimeTableResponse();
+        timeTableResponse.setId(timeTable.getId());
+        timeTableResponse.setPatientId(timeTable.getPatient().getId());
+        timeTableResponse.setDoctorId(timeTable.getDoctor().getId());
+        timeTableResponse.setDoctorName(timeTable.getDoctor().getName());
+        timeTableResponse.setPatientName(timeTable.getPatient().getFullName());
+        timeTableResponse.setAppointmentTime(timeTable.getAppointmentTime().toString());
+        timeTableResponse.setDescription(timeTable.getDescription());
+        timeTableResponse.setStatusLabel(timeTable.getStatusLabel());
+
+        return timeTableResponse;
     }
 }

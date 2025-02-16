@@ -104,36 +104,38 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="pagination">
-                        <a th:if="${currentPage > 0}"
-                           th:href="@{/admin/patient/management(page=${currentPage - 1}, size=${size})}">
-                            Previous
-                        </a>
+                    <div class="pagination-wrapper">
+                        <div class="hc-pagination">
+                            <a th:if="${currentPage > 0}"
+                               th:href="@{/admin/patient/management(page=${currentPage - 1}, size=${size})}">
+                                Previous
+                            </a>
 
-                        <span th:if="${currentPage == 0}" style="color: gray;">Previous</span>
+                            <span th:if="${currentPage == 0}" style="color: gray;">Previous</span>
 
-                        <a th:each="i : ${#numbers.sequence(currentPage - 2, currentPage - 1)}"
-                           th:if="${i >= 0}"
-                           th:href="@{/admin/patient/management(page=${i})}"
-                           th:text="${i + 1}"
-                           class="page-num">
-                        </a>
+                            <a th:each="i : ${#numbers.sequence(currentPage - 2, currentPage - 1)}"
+                               th:if="${i >= 0}"
+                               th:href="@{/admin/patient/management(page=${i})}"
+                               th:text="${i + 1}"
+                               class="page-num">
+                            </a>
 
-                        <span th:text="${currentPage + 1}" style="font-weight: bold;" class="page-num current"></span>
+                            <span th:text="${currentPage + 1}" style="font-weight: bold;" class="page-num current"></span>
 
-                        <a th:each="i : ${#numbers.sequence(currentPage + 1, currentPage + 2)}"
-                           th:if="${i < totalPages}"
-                           th:href="@{/admin/patient/management(page=${i})}"
-                           th:text="${i + 1}"
-                           class="page-num">
-                        </a>
+                            <a th:each="i : ${#numbers.sequence(currentPage + 1, currentPage + 2)}"
+                               th:if="${i < totalPages}"
+                               th:href="@{/admin/patient/management(page=${i})}"
+                               th:text="${i + 1}"
+                               class="page-num">
+                            </a>
 
-                        <a th:if="${currentPage < totalPages - 1}"
-                           th:href="@{/admin/patient/management(page=${currentPage + 1})}">
-                            Next
-                        </a>
+                            <a th:if="${currentPage < totalPages - 1}"
+                               th:href="@{/admin/patient/management(page=${currentPage + 1})}">
+                                Next
+                            </a>
 
-                        <span th:if="${currentPage == totalPages - 1}" style="color: gray;">Next</span>
+                            <span th:if="${currentPage == totalPages - 1}" style="color: gray;">Next</span>
+                        </div>
                     </div>
                     <div class="question">
                         <span>Status ?</span>

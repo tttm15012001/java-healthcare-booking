@@ -29,6 +29,15 @@ public class TimeTableModel {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "appointment_type", nullable = false, columnDefinition = "TINYINT DEFAULT 0")
+    private int appointmentType;
+
+    @Column(name = "patient_information", nullable = false)
+    private String patientInformation;
+
+    @Column(name = "reference_information", nullable = false)
+    private String referenceInformation;
+
     @Column(name = "status", nullable = false, columnDefinition = "TINYINT DEFAULT 0")
     private int status = 0;
 

@@ -16,11 +16,14 @@ import java.util.Map;
 
 @Service
 public class PatientService {
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final PatientSpecification patientSpecification;
 
     @Autowired
-    private PatientSpecification patientSpecification;
+    public PatientService(PatientRepository patientRepository, PatientSpecification patientSpecification) {
+        this.patientRepository = patientRepository;
+        this.patientSpecification = patientSpecification;
+    }
 
     public List<PatientModel> getListPatient(Integer num) {
         if (num != null) {
@@ -59,13 +62,12 @@ public class PatientService {
         if (requirePage > 0 && requireSize > 0) {
             Pageable pageable = PageRequest.of(requirePage, requireSize);
             patientPage = this.patientRepository.findAll(pageable);
+            patientPage.getContent().forEach(item -> patients.add(buildPatientResponse(item)));
         } else {
             List<PatientModel> patientList = this.patientRepository.findAll();
             patientList.forEach(item -> patients.add(buildPatientResponse(item)));
             patientPage = new PageImpl<>(patientList);
         }
-
-        patientPage.getContent().forEach(item -> patients.add(buildPatientResponse(item)));
 
         return getResponse(patients, patientPage);
     }

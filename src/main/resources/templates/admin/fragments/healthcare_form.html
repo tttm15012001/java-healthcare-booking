@@ -1,0 +1,133 @@
+<!-- Healthcare Form Fragment -->
+<div id="healthcare-modal" class="modal" th:fragment="healthcare-form(patient)">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Request Health Care</h2>
+
+        <form id="healthcare-form">
+            <div class="form-toggle">
+                <span>For yourself</span>
+                <label class="switch">
+                    <input type="checkbox" id="hf-appointment_type">
+                    <span class="slider round"></span>
+                </label>
+                <span>For another</span>
+            </div>
+
+            <div class="form-input-element input-placeholder">
+                <input
+                        type="hidden"
+                        id="hf-patient_id"
+                        name="hf-patient_id"
+                        th:value="${patient != null ? patient.id : ''}"
+                        required
+                        readonly
+                        class="form-control"
+                />
+            </div>
+
+            <div class="form-input-element input-placeholder">
+                <input
+                        type="text"
+                        placeholder="Full Name"
+                        id="hf-fullName"
+                        name="hf-fullName"
+                        th:value="${patient != null ? patient.fullName : ''}"
+                        required
+                        class="form-control"
+                />
+            </div>
+            <div class="form-input-element input-placeholder">
+                <input
+                        type="text"
+                        placeholder="Phone Number"
+                        id="hf-phone-number"
+                        name="hf-phone-number"
+                        th:value="${patient != null ? patient.phoneNumber : ''}"
+                        required
+                        class="form-control"
+                />
+            </div>
+
+            <div class="form-element form-checkbox-element">
+                <label>
+                    <input type="radio" name="hf-gender" value="MALE" th:checked="${patient != null && patient.gender == 'MALE'}"> Male
+                </label>
+                <label>
+                    <input type="radio" name="hf-gender" value="FEMALE" th:checked="${patient != null && patient.gender == 'FEMALE'}"> Female
+                </label>
+            </div>
+
+            <div id="another-person-fields" style="display: none;">
+                <h3>Another Person's Information</h3>
+                <div class="form-input-element input-placeholder">
+                    <input type="text" placeholder="Full Name" id="another-fullName" name="another-fullName" class="form-control"/>
+                </div>
+                <div class="form-input-element input-placeholder">
+                    <input type="text" placeholder="Phone Number" id="another-phone-number" name="another-phone-number" class="form-control"/>
+                </div>
+                <div class="form-element form-checkbox-element">
+                    <label>
+                        <input type="radio" name="another-gender" value="MALE"> Male
+                    </label>
+                    <label>
+                        <input type="radio" name="another-gender" value="FEMALE"> Female
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-input-element input-placeholder">
+                <label for="hf-datetime" class="">Appointment Date Time</label>
+                <input
+                        type="datetime-local"
+                        placeholder="Datetime"
+                        id="hf-datetime"
+                        name="hf-datetime"
+                        required
+                        class="form-control"
+                />
+            </div>
+
+            <div class="form-input-element input-placeholder">
+                <label for="hf-datetime" class="">Write short description to describe your current symptoms</label>
+                <textarea
+                        type="text"
+                        placeholder="Description"
+                        id="hf-description"
+                        name="hf-description"
+                        required
+                        class="form-control"
+                ></textarea>
+            </div>
+
+            <div class="form-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="select-doctor-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span>Select a Specific Doctor</span>
+            </div>
+
+            <div id="doctor-selection-fields" style="display: none;">
+                <div class="form-input-element">
+                    <label for="speciality">Khoa Khám Bệnh:</label>
+                    <select id="speciality" name="speciality" class="form-control">
+                        <option value="">Select Speciality</option>
+                    </select>
+                </div>
+
+                <div class="form-input-element">
+                    <label for="doctor">Bác Sĩ Khám:</label>
+                    <select id="doctor" name="doctor" class="form-control">
+                        <option value="">Select Doctor</option>
+                        <option value="dr-nguyen">Dr. Nguyen</option>
+                        <option value="dr-tran">Dr. Tran</option>
+                        <option value="dr-le">Dr. Le</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

@@ -18,6 +18,10 @@ public class DoctorModel {
     private String address;
     private String email;
     private String degree;
-    private String speciality;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "speciality_code", referencedColumnName = "code", nullable = false)
+    private Speciality speciality;
+
     private String yearOfExperience;
 }

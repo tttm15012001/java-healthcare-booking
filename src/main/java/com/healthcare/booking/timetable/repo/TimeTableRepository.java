@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,4 +26,11 @@ public interface TimeTableRepository extends JpaRepository<TimeTableModel, Long>
             "WHERE t.appointmentTime BETWEEN :start AND :end " +
             "GROUP BY t.status")
     List<StatusCount> countStatusesBetween(LocalDateTime start, LocalDateTime end);
+
+    Page<TimeTableModel> findByAppointmentTimeBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
+
+    @Query("SELECT ttm " +
+            "FROM TimeTableModel ttm " +
+            "WHERE ttm.appointmentTime BETWEEN :from AND :to ")
+    List<TimeTableModel> findByAppointmentTimeBetweenWithoutPageable(LocalDateTime from, LocalDateTime to);
 }
