@@ -45,36 +45,63 @@
             padding: 10px 10px 0 10px;
             margin: 5px 0;
 
+            .appointment-status {
+                text-align: center;
+                font-size: 12.5px;
+                font-weight: bold;
+            }
+
             &.status-waiting {
                 border-left: 4px solid #ccc;
+
+                .appointment-status {
+                    color: #ccc;
+                }
             }
 
             &.status-diagnosing {
                 border-left: 4px solid #FFEA00;
+
+                .appointment-status {
+                    color: #FFEA00;
+                }
             }
 
             &.status-testing {
                 border-left: 4px solid #F44336;
+
+                .appointment-status {
+                    color: #F44336;
+                }
             }
 
             &.status-complete {
                 border-left: 4px solid #76FF03;
+
+                .appointment-status {
+                    color: #76FF03;
+                }
             }
 
             .doctor-name {
                 font-size: 13px;
-                margin-bottom: 25px !important;
+                margin-bottom: 10px !important;
             }
 
-            .patient-name,
-            .appointment-status {
-                font-size: 14.5px;
+            .doctor-name,
+            .patient-name {
+                font-size: 12.5px;
                 line-height: 20px;
-                height: 40px;
+                height: 25px;
 
                 span {
+                    font-size: 13.5px;
                     font-weight: bold;
                 }
+            }
+
+            .patient-name {
+                margin-bottom: 5px;
             }
         }
     }

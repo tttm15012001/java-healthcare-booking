@@ -37,9 +37,12 @@
                             (${appointment.status == 2} ? 'status-testing' :
                             (${appointment.status == 3} ? 'status-complete' :
                             'status-unknown')))">
-                                    <b><p class="doctor-name" th:text="${appointment.doctorName}"></p></b>
-                                    <p class="patient-name">Patient: <span th:text="${appointment.patientName}"></span></p>
-                                    <p class="appointment-status">Status: <span th:text="${appointment.statusLabel}"></span></p>
+                                    <p class="appointment-status"><span th:text="${appointment.statusLabel}"></span></p>
+                                    <p class="doctor-name">Doctor: <span th:text="${appointment.doctorInfo.name}"></span></p>
+                                    <p class="patient-name">Patient: <span th:text="${appointment.patientInfo.fullName}"></span></p>
+                                    <p th:if="${appointment.status == 0}">
+                                        Time: <span th:text="${appointment.appointmentTime}"></span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

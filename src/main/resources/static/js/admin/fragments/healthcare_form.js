@@ -73,6 +73,7 @@ $(document).ready(function () {
 
     /* Handle submit form modal */
     $("#healthcare-form").submit(function (event) {
+        debugger;
         event.preventDefault();
 
         let referenceInformation = {
@@ -88,26 +89,25 @@ $(document).ready(function () {
         }
 
         let formData = {
-            patient_id: $("#hf-patient_id").val(),
-            patient_information: JSON.stringify(patientInformation),
-            reference_information: JSON.stringify(referenceInformation),
-            appointment_type: $("#hf-appointment_type").val(),
-            appointment_time: $("#hf-datetime").val(),
-            description: $("#hf-description").val(),
-            doctor_id: $('#doctor').find(":selected").val()
+            patientInfo: {id: $("#hf-patient_id").val()},
+            doctorInfo: {id: $('#doctor').find(":selected").val()},
+            patientInformation: JSON.stringify(patientInformation),
+            referenceInformation: JSON.stringify(referenceInformation),
+            appointmentType: $("#hf-appointment_type").is(":checked") ? 1 : 0,
+            appointmentTime: $("#hf-datetime").val(),
+            description: $("#hf-description").val()
         };
 
         $.ajax({
             type: "POST",
-            url: "/api/healthcare-request",
+            url: "/api/timetable/create",
             data: JSON.stringify(formData),
             contentType: "application/json",
+            dataType: "json",
             success: function (response) {
-                alert("Request submitted successfully!");
                 window.location.href = "/admin/weekly-calendar";
             },
             error: function () {
-                alert("Failed to submit request. Please try again.");
             }
         });
     });

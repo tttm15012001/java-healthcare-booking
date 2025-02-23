@@ -27,8 +27,13 @@
                     <input type="date" id="endDate" th:value="${endDate}" onchange="updateReport()">
 
                     <!-- Chart Container -->
-                    <div class="chart-container" style="width: 100%; height: 400px;">
-                        <div id="reportChart" style="width: 100%; height: 100%;"></div>
+                    <div id="chart-container" style="display: flex;">
+                        <div id="chart-anal-number-of-patients-container" style="width: 70%; height: 300px;">
+                            <div id="chart-anal-number-of-patients" style="width: 100%; height: 300px;"></div>
+                        </div>
+                        <div id="chart-anal-patient-status-container" style="width: 30%; min-width: 300px; height: 300px;">
+                            <div id="chart-anal-patient-status" style="width: 100%; height: 300px;"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="manage-patient-wrapper">
@@ -49,7 +54,7 @@
 <script th:inline="javascript">
     var statusPercentages = /*[[${statusPercentages}]]*/ {};
 
-    const chart = echarts.init(document.getElementById('reportChart'));
+    const chart = echarts.init(document.getElementById('chart-anal-patient-status'));
 
     const data = [];
     const colors = {
@@ -71,23 +76,27 @@
 
     const options = {
         title: {
-            text: 'Status Distribution',
-            left: 'center'
+            text: 'Biểu đồ thống kê tiến trình khám bệnh',
+            left: 'center',
+            textStyle: {
+                fontSize: 14
+            }
         },
         tooltip: {
             trigger: 'item',
-            formatter: '{b}: {c}% ({d}%)'
+            formatter: '{b}: {c} bệnh nhân ({d}%)'
         },
         legend: {
-            orient: 'vertical',
-            left: 'left',
+            orient: 'horizontal',
+            bottom: 30,
             data: Object.keys(statusPercentages)
         },
         series: [
             {
                 name: 'Status',
                 type: 'pie',
-                radius: ['50%', '70%'],
+                radius: ['55px', '70px'],
+                center: ['50%', '40%'],
                 avoidLabelOverlap: false,
                 itemStyle: {
                     borderRadius: 10,
@@ -95,14 +104,12 @@
                     borderWidth: 2
                 },
                 label: {
-                    show: true,
-                    position: 'outside',
-                    formatter: '{b}: {c}%'
+                    show: false
                 },
                 emphasis: {
                     label: {
                         show: true,
-                        fontSize: '16',
+                        fontSize: '12',
                         fontWeight: 'bold'
                     }
                 },
