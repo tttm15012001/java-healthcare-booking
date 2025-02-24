@@ -6,6 +6,7 @@
     <title>Weekly Calendar</title>
     <link rel="stylesheet" th:href="@{/css/admin/aside-navigation.css}">
     <link rel="stylesheet" th:href="@{/css/admin/weekly-calendar.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/fragments/popup_success.css}">
 </head>
 <body>
 <div class="main-wrapper weekly-calendar-page" data-class-page="weekly-calendar-page">
@@ -16,9 +17,6 @@
                 <div class="weekly-calendar-container">
                     <div class="header">
                         <h1>Weekly Calendar</h1>
-                        <a th:href="@{/admin/weekly-calendar/refresh}">
-                            <button class="refresh-btn">Refresh All</button>
-                        </a>
                     </div>
 
                     <div class="calendar-grid">
@@ -40,14 +38,15 @@
                                     <p class="appointment-status"><span th:text="${appointment.statusLabel}"></span></p>
                                     <p class="doctor-name">Doctor: <span th:text="${appointment.doctorInfo.name}"></span></p>
                                     <p class="patient-name">Patient: <span th:text="${appointment.patientInfo.fullName}"></span></p>
-                                    <p th:if="${appointment.status == 0}">
-                                        Time: <span th:text="${appointment.appointmentTime}"></span>
+                                    <p class="appointment-time" th:if="${appointment.status == 0}">
+                                        <span th:text="${appointment.formattedAppointmentTime}"></span>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div th:replace="~{admin/fragments/popup_success::popup_success}"></div>
             </div>
         </div>
     </div>

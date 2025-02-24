@@ -2,6 +2,8 @@ package com.healthcare.booking.api;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class TimeTableResponse {
     private Long id;
@@ -9,7 +11,7 @@ public class TimeTableResponse {
     private Long doctorId;
     private String patientName;
     private String doctorName;
-    private String appointmentTime;
+    private LocalDateTime appointmentTime;
     private String description;
     private String statusLabel;
 }

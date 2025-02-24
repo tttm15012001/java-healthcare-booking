@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -54,10 +55,10 @@ public class TimeTableService {
         String redisKey = generateRedisKeyForDate(date);
 
         /* Kiểm tra xem dữ liệu có trong Redis không */
-        List<TimeTableDto> cachedAppointments = (List<TimeTableDto>) redisTemplate.opsForValue().get(redisKey);
-        if (cachedAppointments != null) {
-            return cachedAppointments;
-        }
+//        List<TimeTableDto> cachedAppointments = (List<TimeTableDto>) redisTemplate.opsForValue().get(redisKey);
+//        if (cachedAppointments != null) {
+//            return cachedAppointments;
+//        }
 
         LocalDateTime start = date.atStartOfDay();
         LocalDateTime end = date.atTime(23, 59, 59);
@@ -69,7 +70,7 @@ public class TimeTableService {
                 .collect(Collectors.toList());
 
         /* Lưu vào Redis với thời gian sống là 1 giờ */
-        redisTemplate.opsForValue().set(redisKey, appointmentDTOs, 1, TimeUnit.HOURS);
+//        redisTemplate.opsForValue().set(redisKey, appointmentDTOs, 1, TimeUnit.HOURS);
 
         return appointmentDTOs;
     }
@@ -100,7 +101,7 @@ public class TimeTableService {
                 .doctorInfo(this.doctorService.buildDoctorInfoById(timeTable.getDoctor().getId()))
                 .status(timeTable.getStatus())
                 .statusLabel(timeTable.getStatusLabel())
-                .appointmentTime(timeTable.getAppointmentTime())
+                .formattedAppointmentTime(timeTable.getAppointmentTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")))
                 .description(timeTable.getDescription())
                 .build();
     }
@@ -175,7 +176,7 @@ public class TimeTableService {
         timeTableResponse.setDoctorId(timeTable.getDoctor().getId());
         timeTableResponse.setDoctorName(timeTable.getDoctor().getName());
         timeTableResponse.setPatientName(timeTable.getPatient().getFullName());
-        timeTableResponse.setAppointmentTime(timeTable.getAppointmentTime().toString());
+        timeTableResponse.setAppointmentTime(timeTable.getAppointmentTime());
         timeTableResponse.setDescription(timeTable.getDescription());
         timeTableResponse.setStatusLabel(timeTable.getStatusLabel());
 

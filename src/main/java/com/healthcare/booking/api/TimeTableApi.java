@@ -1,11 +1,13 @@
 package com.healthcare.booking.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.healthcare.booking.model.DoctorModel;
 import com.healthcare.booking.dto.ResponseDto;
 import com.healthcare.booking.model.PatientModel;
 import com.healthcare.booking.dto.TimeTableDto;
 import com.healthcare.booking.model.TimeTableModel;
 import com.healthcare.booking.service.TimeTableService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

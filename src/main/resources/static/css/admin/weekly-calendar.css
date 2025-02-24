@@ -5,13 +5,6 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px 0;
-
-        .refresh-btn {
-            background-color: #f9c600;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
     }
 
     .calendar-grid {
@@ -42,13 +35,21 @@
         .appointment-card {
             background-color: #fff;
             border: 1px solid #ccc;
-            padding: 10px 10px 0 10px;
+            padding: 0px 10px 0 10px;
             margin: 5px 0;
 
             .appointment-status {
                 text-align: center;
                 font-size: 12.5px;
                 font-weight: bold;
+            }
+
+            .appointment-time {
+                font-size: 12px;
+                font-weight: bold;
+                margin-top: 15px;
+                text-align: center;
+                color: #379777;
             }
 
             &.status-waiting {
@@ -85,7 +86,7 @@
 
             .doctor-name {
                 font-size: 13px;
-                margin-bottom: 10px !important;
+                margin-top: 10px !important;
             }
 
             .doctor-name,

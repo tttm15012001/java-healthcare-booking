@@ -17,13 +17,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import java.time.format.DateTimeFormatter;
 
 @Configuration
-@PropertySource("classpath:application-test.properties")
 @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 public class CustomObjectMapperConfig {
-
-    @Value("${spring.datasource.url:}")
-    private String datasourceUrl;
-
     private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
     private static final LocalDateTimeSerializer LOCAL_DATETIME_SERIALIZER =
             new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_FORMAT));

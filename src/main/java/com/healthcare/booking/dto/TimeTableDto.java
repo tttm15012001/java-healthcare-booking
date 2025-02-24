@@ -21,4 +21,5 @@ public class TimeTableDto {
     private int appointmentType;
     private LocalDateTime appointmentTime;
     private String description;
+    private String formattedAppointmentTime;
 }
